@@ -49,18 +49,19 @@ export default tseslint.config({
 });
 ```
 
-#### about project
+## about project
 
 app booking Futsal
 
-#### extension
+## extension
 
 use this extension for eazy to develop
-Tailwind CSS IntelliSense
-Codeium: AI Coding Autocomplete and Chat for Python, Javascript, Typescript, Java, Go,
-Prettier - Code formatter
-Material Icon Theme
-Auto Rename Tag
+
+- Tailwind CSS IntelliSense
+- Codeium: AI Coding Autocomplete and Chat for Python, Javascript, Typescript, Java, Go,
+- Prettier - Code formatter
+- Material Icon Theme
+- Auto Rename Tag
 
 # Project React-TS with ShadCN and TailwindCSS
 
