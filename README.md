@@ -166,9 +166,9 @@ auu-futsal
 
 Stay connected for updates and more projects:
 
-- **GitHub**: [github.com/wpao](https://github.com/wpao)
-- **YouTube**: [youtube.com/@codesal-54](https://www.youtube.com/@codesal-54)
-- **Instagram**: [instagram.com/paozanwa22](https://www.instagram.com/paozanwa22/)
+- **GitHub**: <a href="https://github.com/wpao" target="_blank">github.com/wpao</a>
+- **YouTube**: <a href="https://www.youtube.com/@codesal-54" target="_blank">youtube.com/@codesal-54</a>
+- **Instagram**: <a href="https://www.instagram.com/paozanwa22/" target="_blank">instagram.com/paozanwa22</a>
 
 ## License
 
