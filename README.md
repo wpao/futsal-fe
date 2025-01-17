@@ -125,18 +125,9 @@ auu-futsal
 │  ├─ assets
 │  │  └─ react.svg
 │  ├─ components
-│  │  ├─ CalendarForm copy.tsx
 │  │  ├─ CalendarForm.tsx
 │  │  ├─ Jam.tsx
 │  │  └─ ui
-│  │     ├─ button.tsx
-│  │     ├─ calendar.tsx
-│  │     ├─ form.tsx
-│  │     ├─ input.tsx
-│  │     ├─ label.tsx
-│  │     ├─ popover.tsx
-│  │     ├─ toast.tsx
-│  │     └─ toaster.tsx
 │  ├─ hooks
 │  │  └─ use-toast.ts
 │  ├─ index.css
@@ -145,14 +136,11 @@ auu-futsal
 │  │  └─ utils.ts
 │  ├─ main.tsx
 │  ├─ pages
-│  │  ├─ CounterPage.tsx
 │  │  └─ HomePage.tsx
 │  ├─ store
-│  │  ├─ counter.ts
 │  │  ├─ date.ts
 │  │  ├─ jam.ts
 │  │  ├─ store.ts
-│  │  └─ user.ts
 │  └─ vite-env.d.ts
 ├─ tailwind.config.js
 ├─ tsconfig.app.json
@@ -177,3 +165,60 @@ This project is licensed under the MIT License. See the LICENSE file for more in
 ## Contributing
 
 Feel free to fork the project and submit pull requests. Contributions are welcome!
+
+## API
+
+### req jam
+
+```ts
+http://localhost:2000/booking?=2025-01-13
+
+{
+"name": "",
+"price": 0,
+"wa": 0,
+"jam": 8,
+"bayar": false
+}
+```
+
+response
+
+```json
+{
+"id": 8,
+"name": "",
+"price": 0,
+"wa": 0,
+"jam": 8,
+"bayar": false
+},
+```
+
+### req WA
+
+```ts
+http://localhost:2000/booking?=0819876543241
+
+{
+"wa": 0819876543241,
+}
+```
+
+response
+
+```json
+{
+"id": 8,
+"name": "aa",
+"price": 50000,
+"wa": 0819876543241,
+"jam": 8,
+"bayar": false
+},
+```
+
+<!-- task -->
+<!-- Jam.tsx
+jika tombol submit di tekan, munculkan popup
+-->
