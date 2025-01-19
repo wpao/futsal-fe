@@ -4,7 +4,7 @@ import { axiosInstance } from "@/lib/axios";
 import { useSelector } from "react-redux";
 
 // redux
-import { RootState } from "../store/store";
+import { RootState } from "../../store/store";
 import { useEffect, useState } from "react";
 
 // popup
@@ -15,8 +15,7 @@ import {
 } from "@/components/ui/popover";
 
 import { useDispatch } from "react-redux";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { Button } from "../ui/button";
 
 export const Jam = () => {
   // redux
@@ -53,6 +52,34 @@ export const Jam = () => {
     }
   };
 
+  // jika booking di tekan, console.log(object)
+  const onBookingSubmit = async () => {
+    // console.log({
+    //   id: 21334234,
+    //   name: "admin",
+    //   price: 50000,
+    //   wa: 98776654321,
+    //   jam: jamSelector.timeBooking,
+    //   bayar: true,
+    // });
+
+    // update data jam db.json berdasarkan object
+    try {
+      await axiosInstance.patch(
+        `${dateSelector.tahunbulantanggal}/${jamSelector.timeBooking}`,
+        {
+          bayar: true,
+          wa: 98776654321,
+          price: 50000,
+        },
+      );
+
+      alert("edit berhasil");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // ketika tanggal berubah
   useEffect(() => {
     fetchC();
@@ -80,13 +107,14 @@ export const Jam = () => {
             JAM : {String(jamSelector.timeBooking)} - {String(jamSelesai)} |
             Date : <p>{dateSelector.tahunbulantanggal}</p>
           </div>
-          <div className="flex flex-col gap-5">
-            <Input />
-            <Input />
+          <div>
+            <p>nama : admin</p>
+            <p>wa : 98776654321</p>
+            <p>bayar : lunas</p>
           </div>
           <div className="flex justify-around">
             <Button>Cancle</Button>
-            <Button>Booking</Button>
+            <Button onClick={onBookingSubmit}>Booking</Button>
           </div>
         </PopoverContent>
       </div>
