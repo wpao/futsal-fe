@@ -101,6 +101,7 @@ Ensure you have the following installed on your machine:
 3. Install dependencies:
    ```bash
    pnpm install
+   pnpm add json-server
    ```
 
 ### Running the Project

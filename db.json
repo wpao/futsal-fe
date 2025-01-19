@@ -222,11 +222,11 @@
     },
     {
       "id": "19",
-      "name": "Amelia",
-      "price": 50000,
-      "wa": 821456789024,
+      "name": "",
+      "price": 0,
+      "wa": 0,
       "jam": 19,
-      "bayar": true
+      "bayar": false
     },
     {
       "id": "20",
@@ -239,18 +239,18 @@
     {
       "id": "21",
       "name": "",
-      "price": 50000,
-      "wa": 98776654321,
+      "price": 0,
+      "wa": 0,
       "jam": 21,
-      "bayar": true
+      "bayar": false
     },
     {
       "id": "22",
-      "name": "Harper",
-      "price": 50000,
-      "wa": 821456789026,
+      "name": "",
+      "price": 0,
+      "wa": 0,
       "jam": 22,
-      "bayar": true
+      "bayar": false
     }
   ],
   "81123123123": [
