@@ -80,7 +80,10 @@ export function CheckForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-full max-w-60 space-y-8"
+      >
         <Popover>
           <FormField
             control={form.control}

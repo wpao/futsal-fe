@@ -79,7 +79,7 @@ export function CalendarForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full max-w-xs space-y-8"
+        className="w-full max-w-60 space-y-8"
       >
         <FormField
           control={form.control}

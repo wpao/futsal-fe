@@ -18,7 +18,7 @@ import { useDispatch } from "react-redux";
 import { Button } from "../ui/button";
 
 // berpindah halaman
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const Jam = () => {
   // redux
@@ -32,10 +32,6 @@ export const Jam = () => {
   // redux (by : paozan)
   // redux menggunakan dispatch untuk mengubah state global
   const dispatch = useDispatch();
-
-  // refresh halaman
-  const params = useParams();
-  console.log(params);
 
   // berpindah halaman
   const navigate = useNavigate();
@@ -107,7 +103,7 @@ export const Jam = () => {
       alert("unBooking berhasil");
 
       // berpindah halaman
-      navigate("/");
+      navigate("/admin/edit");
     } catch (error) {
       console.log(error);
     }
