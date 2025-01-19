@@ -17,6 +17,9 @@ import {
 import { useDispatch } from "react-redux";
 import { Button } from "../ui/button";
 
+// berpindah halaman
+import { useNavigate, useParams } from "react-router-dom";
+
 export const Jam = () => {
   // redux
   const dateSelector = useSelector((state: RootState) => state.date);
@@ -29,6 +32,13 @@ export const Jam = () => {
   // redux (by : paozan)
   // redux menggunakan dispatch untuk mengubah state global
   const dispatch = useDispatch();
+
+  // refresh halaman
+  const params = useParams();
+  console.log(params);
+
+  // berpindah halaman
+  const navigate = useNavigate();
 
   // jam get
   const fetchC = async () => {
@@ -63,7 +73,7 @@ export const Jam = () => {
     //   bayar: true,
     // });
 
-    // update data jam db.json berdasarkan object
+    // update data jam db.json
     try {
       await axiosInstance.patch(
         `${dateSelector.tahunbulantanggal}/${jamSelector.timeBooking}`,
@@ -74,7 +84,30 @@ export const Jam = () => {
         },
       );
 
-      alert("edit berhasil");
+      alert("Booking berhasil");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const unBookingSubmit = async () => {
+    // update data jam db.json
+    try {
+      await axiosInstance.patch(
+        `${dateSelector.tahunbulantanggal}/${jamSelector.timeBooking}`,
+        {
+          name: "",
+          bayar: false,
+          wa: 0,
+          price: 0,
+          jam: jamSelector.timeBooking,
+        },
+      );
+
+      alert("unBooking berhasil");
+
+      // berpindah halaman
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -113,7 +146,8 @@ export const Jam = () => {
             <p>bayar : lunas</p>
           </div>
           <div className="flex justify-around">
-            <Button>Cancle</Button>
+            {/* <Button>Cancle</Button> */}
+            <Button onClick={unBookingSubmit}>unBooking</Button>
             <Button onClick={onBookingSubmit}>Booking</Button>
           </div>
         </PopoverContent>
