@@ -62,7 +62,7 @@ export const Jam = () => {
     <Popover>
       <div className="mb-10 mt-10 grid grid-cols-5 items-center gap-2">
         {times.map((time: typeTime) => (
-          <PopoverTrigger>
+          <PopoverTrigger key={time.jam}>
             <div
               onClick={() => popupFunction(time.jam)}
               key={time.id}

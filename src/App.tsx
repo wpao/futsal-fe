@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import { Toaster } from "@/components/ui/toaster";
-import CheckPage from "./pages/CheckPage";
+// import CheckPage from "./pages/CheckPage";
 import InfoPage from "./pages/InfoPage";
 import { Header } from "./components/Header";
 import JamPage from "./pages/admin/JamPage";
@@ -12,7 +12,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" Component={HomePage} />
-        <Route path="/check" Component={CheckPage} />
+        {/* <Route path="/check" Component={CheckPage} /> */}
         <Route path="/info" Component={InfoPage} />
         <Route path="/admin">
           <Route path="edit/" Component={JamPage} />

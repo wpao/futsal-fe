@@ -1,14 +1,4 @@
 {
-  "810009": [
-    {
-      "jam": 18,
-      "id": "98",
-      "name": "admin edit",
-      "price": 50000,
-      "wa": 98776654321,
-      "bayar": true
-    }
-  ],
   "2025-01-12": [
     {
       "id": "8",
@@ -76,11 +66,11 @@
     },
     {
       "id": "16",
-      "name": "Scarlett",
-      "price": 50000,
-      "wa": 821456789038,
+      "name": "",
+      "price": 0,
+      "wa": 0,
       "jam": 16,
-      "bayar": true
+      "bayar": false
     },
     {
       "id": "17",
@@ -117,18 +107,18 @@
     {
       "id": "21",
       "name": "",
-      "price": 50000,
-      "wa": 98776654321,
+      "price": 0,
+      "wa": 0,
       "jam": 21,
-      "bayar": true
+      "bayar": false
     },
     {
       "id": "22",
       "name": "",
-      "price": 0,
-      "wa": 0,
+      "price": 50000,
+      "wa": 98776654321,
       "jam": 22,
-      "bayar": false
+      "bayar": true
     }
   ],
   "2025-01-13": [
@@ -151,10 +141,10 @@
     {
       "id": "10",
       "name": "",
-      "price": 50000,
-      "wa": 98776654321,
+      "price": 0,
+      "wa": 0,
       "jam": 10,
-      "bayar": true
+      "bayar": false
     },
     {
       "id": "11",
@@ -206,9 +196,9 @@
     },
     {
       "id": "17",
-      "name": "Lucas",
+      "name": "",
       "price": 0,
-      "wa": 821456789023,
+      "wa": 0,
       "jam": 17,
       "bayar": false
     },
@@ -230,9 +220,9 @@
     },
     {
       "id": "20",
-      "name": "Mason",
+      "name": "",
       "price": 0,
-      "wa": 821456789025,
+      "wa": 0,
       "jam": 20,
       "bayar": false
     },
@@ -250,36 +240,6 @@
       "price": 0,
       "wa": 0,
       "jam": 22,
-      "bayar": false
-    }
-  ],
-  "81123123123": [
-    {
-      "id": "1",
-      "name": "Typicode",
-      "price": 50000,
-      "wa": 81123123123,
-      "jam": 21,
-      "bayar": true
-    }
-  ],
-  "81234234234": [
-    {
-      "id": "1",
-      "name": "Typicode",
-      "price": 50000,
-      "wa": 81123123123,
-      "jam": 21,
-      "bayar": false
-    }
-  ],
-  "81345345345": [
-    {
-      "id": "1",
-      "name": "",
-      "price": 0,
-      "wa": 0,
-      "jam": 21,
       "bayar": false
     }
   ]

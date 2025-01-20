@@ -71,7 +71,6 @@ export function CalendarForm() {
 
   //
   useEffect(() => {
-    console.log(date);
     setDateInput();
   }, [date]);
 
