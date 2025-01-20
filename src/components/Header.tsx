@@ -10,9 +10,9 @@ export const Header = () => {
         <Link to="/">
           <div>Home</div>
         </Link>
-        <Link to="/check">
+        {/* <Link to="/check">
           <div>Check</div>
-        </Link>
+        </Link> */}
         <Link to="/info">
           <div>Info</div>
         </Link>

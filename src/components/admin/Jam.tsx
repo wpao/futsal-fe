@@ -7,18 +7,19 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { useEffect, useState } from "react";
 
-// popup
+// alert dialog
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 import { useDispatch } from "react-redux";
-import { Button } from "../ui/button";
-
-// berpindah halaman
-import { useNavigate } from "react-router-dom";
 
 export const Jam = () => {
   // redux
@@ -28,13 +29,11 @@ export const Jam = () => {
   // jam
   const [times, setTimes] = useState([]);
   const [jamSelesai, setJamSelesai] = useState(jamSelector.timeBooking);
+  // const [refreshJam, setRefreshJam] = useState(jamSelector.timeBooking);
 
   // redux (by : paozan)
   // redux menggunakan dispatch untuk mengubah state global
   const dispatch = useDispatch();
-
-  // berpindah halaman
-  const navigate = useNavigate();
 
   // jam get
   const fetchC = async () => {
@@ -60,15 +59,6 @@ export const Jam = () => {
 
   // jika booking di tekan, console.log(object)
   const onBookingSubmit = async () => {
-    // console.log({
-    //   id: 21334234,
-    //   name: "admin",
-    //   price: 50000,
-    //   wa: 98776654321,
-    //   jam: jamSelector.timeBooking,
-    //   bayar: true,
-    // });
-
     // update data jam db.json
     try {
       await axiosInstance.patch(
@@ -81,6 +71,11 @@ export const Jam = () => {
       );
 
       alert("Booking berhasil");
+
+      console.log("button booking was clicked");
+      fetchC();
+
+      // close popup
     } catch (error) {
       console.log(error);
     }
@@ -101,9 +96,8 @@ export const Jam = () => {
       );
 
       alert("unBooking berhasil");
-
-      // berpindah halaman
-      navigate("/admin/edit");
+      console.log("button unBooking was clicked");
+      fetchC();
     } catch (error) {
       console.log(error);
     }
@@ -112,13 +106,14 @@ export const Jam = () => {
   // ketika tanggal berubah
   useEffect(() => {
     fetchC();
+    console.log("tanggal berubah");
   }, [dateSelector]);
 
   return (
-    <Popover>
+    <AlertDialog>
       <div className="mb-10 mt-10 grid grid-cols-5 items-center gap-2">
         {times.map((time: typeTime) => (
-          <PopoverTrigger>
+          <AlertDialogTrigger key={time.id}>
             <div
               onClick={() => popupFunction(time.jam)}
               key={time.id}
@@ -128,27 +123,32 @@ export const Jam = () => {
             >
               {time.jam}
             </div>
-          </PopoverTrigger>
+          </AlertDialogTrigger>
         ))}
-
-        <PopoverContent className="m-3 flex h-[400px] w-[400px] flex-col justify-between border-2 border-gray-500 text-center">
-          <div className="flex justify-center font-semibold">
-            JAM : {String(jamSelector.timeBooking)} - {String(jamSelesai)} |
-            Date : <p>{dateSelector.tahunbulantanggal}</p>
-          </div>
-          <div>
-            <p>nama : admin</p>
-            <p>wa : 98776654321</p>
-            <p>bayar : lunas</p>
-          </div>
-          <div className="flex justify-around">
-            {/* <Button>Cancle</Button> */}
-            <Button onClick={unBookingSubmit}>unBooking</Button>
-            <Button onClick={onBookingSubmit}>Booking</Button>
-          </div>
-        </PopoverContent>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              Jam : {String(jamSelector.timeBooking)} - {String(jamSelesai)} |
+              date : {dateSelector.tahunbulantanggal}
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              Silahkan pilih jam yang akan di booking atau unBooking
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <div className="flex justify-around">
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel onClick={unBookingSubmit}>
+                unBooking
+              </AlertDialogCancel>
+              <AlertDialogCancel onClick={onBookingSubmit}>
+                Booking
+              </AlertDialogCancel>
+            </div>
+          </AlertDialogFooter>
+        </AlertDialogContent>
       </div>
-    </Popover>
+    </AlertDialog>
   );
 };
 
