@@ -1,54 +1,3 @@
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from "eslint-plugin-react";
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: "18.3" } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs["jsx-runtime"].rules,
-  },
-});
-```
-
 ## about project
 
 app booking Futsal
@@ -76,7 +25,6 @@ This is a React TypeScript project built with the following technologies:
 ## Features
 
 - ShadCN Calendar Component: A customizable calendar component integrated into the project.
-- Interaction via Redux: Components interact seamlessly using Redux for state management.
 - Fake API: json-server is used to mock a backend API for testing purposes.
 
 ## Getting Started
@@ -113,7 +61,8 @@ Ensure you have the following installed on your machine:
    ```
 2. Start the development server:
    ```bash
-   pnpm dev
+   pnpm dev #or
+   pnpm run dev
    ```
 3. Open your browser and navigate to `http://localhost:5173`.
 
@@ -172,7 +121,7 @@ Feel free to fork the project and submit pull requests. Contributions are welcom
 ### req jam
 
 ```ts
-http://localhost:2000/booking?=2025-01-13
+http://localhost:2000/2025-01-12
 
 {
 "name": "",
@@ -183,43 +132,130 @@ http://localhost:2000/booking?=2025-01-13
 }
 ```
 
-response
+response = jam di dalam tanggal
 
 ```json
 {
-"id": 8,
-"name": "",
-"price": 0,
-"wa": 0,
-"jam": 8,
-"bayar": false
-},
+  "2025-01-12": [
+    {
+      "id": "8",
+      "name": "",
+      "price": 0,
+      "wa": 0,
+      "jam": 8,
+      "bayar": false
+    },
+    {
+      "id": "9",
+      "name": "",
+      "price": 0,
+      "wa": 0,
+      "jam": 9,
+      "bayar": false
+    },
+    {
+      "id": "10",
+      "name": "Chloe",
+      "price": 50000,
+      "wa": 821456789034,
+      "jam": 10,
+      "bayar": true
+    },
+    {
+      "id": "11",
+      "name": "William",
+      "price": 0,
+      "wa": 821456789035,
+      "jam": 11,
+      "bayar": false
+    },
+    {
+      "id": "12",
+      "name": "",
+      "price": 0,
+      "wa": 0,
+      "jam": 12,
+      "bayar": false
+    },
+    {
+      "id": "13",
+      "name": "Emily",
+      "price": 0,
+      "wa": 821456789036,
+      "jam": 13,
+      "bayar": false
+    },
+    {
+      "id": "14",
+      "name": "Sebastian",
+      "price": 0,
+      "wa": 821456789037,
+      "jam": 14,
+      "bayar": false
+    },
+    {
+      "id": "15",
+      "name": "",
+      "price": 0,
+      "wa": 0,
+      "jam": 15,
+      "bayar": false
+    },
+    {
+      "id": "16",
+      "name": "",
+      "price": 0,
+      "wa": 0,
+      "jam": 16,
+      "bayar": false
+    },
+    {
+      "id": "17",
+      "name": "Aiden",
+      "price": 0,
+      "wa": 821456789039,
+      "jam": 17,
+      "bayar": false
+    },
+    {
+      "id": "18",
+      "name": "",
+      "price": 0,
+      "wa": 0,
+      "jam": 18,
+      "bayar": false
+    },
+    {
+      "id": "19",
+      "name": "Victoria",
+      "price": 50000,
+      "wa": 821456789040,
+      "jam": 19,
+      "bayar": true
+    },
+    {
+      "id": "20",
+      "name": "Elijah",
+      "price": 0,
+      "wa": 821456789041,
+      "jam": 20,
+      "bayar": false
+    },
+    {
+      "id": "21",
+      "name": "",
+      "price": 0,
+      "wa": 0,
+      "jam": 21,
+      "bayar": false
+    },
+    {
+      "id": "22",
+      "name": "",
+      "price": 50000,
+      "wa": 98776654321,
+      "jam": 22,
+      "bayar": true
+    }
+  ],
 ```
-
-### req WA
-
-```ts
-http://localhost:2000/booking?=0819876543241
-
-{
-"wa": 0819876543241,
-}
-```
-
-response
-
-```json
-{
-"id": 8,
-"name": "aa",
-"price": 50000,
-"wa": 0819876543241,
-"jam": 8,
-"bayar": false
-},
-```
-
-<!-- task -->
-<!-- Jam.tsx
-jika tombol submit di tekan, munculkan popup
--->

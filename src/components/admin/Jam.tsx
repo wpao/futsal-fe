@@ -64,6 +64,7 @@ export const Jam = () => {
       await axiosInstance.patch(
         `${dateSelector.tahunbulantanggal}/${jamSelector.timeBooking}`,
         {
+          name: "admin",
           bayar: true,
           wa: 98776654321,
           price: 50000,
@@ -91,7 +92,6 @@ export const Jam = () => {
           bayar: false,
           wa: 0,
           price: 0,
-          jam: jamSelector.timeBooking,
         },
       );
 

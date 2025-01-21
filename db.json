@@ -236,11 +236,11 @@
     },
     {
       "id": "22",
-      "name": "",
-      "price": 0,
-      "wa": 0,
+      "name": "admin",
+      "price": 50000,
+      "wa": 98776654321,
       "jam": 22,
-      "bayar": false
+      "bayar": true
     }
   ]
 }
