@@ -123,13 +123,6 @@ Feel free to fork the project and submit pull requests. Contributions are welcom
 ```ts
 http://localhost:2000/2025-01-12
 
-{
-"name": "",
-"price": 0,
-"wa": 0,
-"jam": 8,
-"bayar": false
-}
 ```
 
 response = jam di dalam tanggal
