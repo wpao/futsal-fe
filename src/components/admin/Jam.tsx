@@ -29,11 +29,17 @@ const getCurrentDateTime = () => {
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, "0"); // Bulan dimulai dari 0
   const day = String(now.getDate()).padStart(2, "0");
+  const hour = now.getHours();
 
-  return { year, month, day };
+  return { year, month, day, hour };
 };
 
-const { year: tahun, month: bulan, day: tanggal } = getCurrentDateTime();
+const {
+  year: tahun,
+  month: bulan,
+  day: tanggal,
+  hour: jamNow,
+} = getCurrentDateTime();
 const tahunBulanTanggalNow = `${tahun}-${bulan}-${tanggal}`;
 
 export const Jam = () => {
@@ -43,7 +49,6 @@ export const Jam = () => {
   const buttonSelector = useSelector((state: RootState) => state.check);
 
   // jam
-  const now = new Date();
   const [times, setTimes] = useState<TypeTime[]>([]);
   const [jamSelesai, setJamSelesai] = useState(jamSelector.timeBooking);
 
@@ -72,17 +77,17 @@ export const Jam = () => {
     dispatch({ type: "JAM_DELETE", payload: id });
 
     // =====================================================
-    // disable button bookong dan unBooking ketika jam lebih kecil dari jam sekarang
-    // jika jam kotak lebih kecil dari jam sekarang, maka button booking dan unBooking akan disable
-    // jika buttonSelector true maka button booking dan button unBooking akan di disable
-    const hours = String(now.getHours()).padStart(2, "0");
-    const hoursNow = parseInt(hours);
-    if (jam.valueOf() >= hoursNow) {
-      // jika buttonSelector false maka button booking dan button unBooking tidak disable
-      dispatch({ type: "DISABLE_BUTTON_FALSE" });
-    } else {
-      // jika buttonSelector true maka button booking dan button unBooking akan disable
-      dispatch({ type: "DISABLE_BUTTON_TRUE" });
+    // disable button (bookong dan unBooking)
+    // jika tahun-bulan-tanggal sama dengan tahun-bulan-tanggal sekarang
+    if (dateSelector.tahunbulantanggal == tahunBulanTanggalNow) {
+      // jika buttonSelector false maka button (booking dan unBooking) tidak disable
+      if (jam.valueOf() >= jamNow) {
+        dispatch({ type: "DISABLE_BUTTON_FALSE" });
+      } else {
+        // jika jam kotak < dari jam sekarang, maka button (booking dan unBooking) akan disable
+        // jika buttonSelector true maka button booking dan button unBooking akan disable
+        dispatch({ type: "DISABLE_BUTTON_TRUE" });
+      }
     }
 
     // =====================================================
@@ -153,6 +158,7 @@ export const Jam = () => {
   // Buat kotak menggunakan ARRAY. buat sebanyak 15 kotak dari angka 8 sampai 22
   // kotak.id dimulai dari 8
   const kotakIds = Array.from({ length: 15 }, (_, i) => 8 + i);
+
   return (
     <AlertDialog>
       <div className="mb-10 mt-10 grid grid-cols-5 items-center gap-2">
@@ -160,13 +166,14 @@ export const Jam = () => {
           // Cari data yang cocok dengan kotakId
           const data = times.find((time) => time.time === kotakId);
 
-          // Dapatkan jam saat ini
-          const currentHour = new Date().getHours();
-
-          // Tentukan apakah kotak perlu dinonaktifkan
-          const isDisabled =
+          // Tentukan apakah kotak diberi tanda disable(css)
+          let isDisabled = false;
+          if (
             dateSelector.tahunbulantanggal == tahunBulanTanggalNow &&
-            kotakId < currentHour;
+            kotakId < jamNow
+          ) {
+            isDisabled = true;
+          }
 
           return (
             <AlertDialogTrigger
