@@ -21,6 +21,21 @@ import {
 
 import { useDispatch } from "react-redux";
 
+// mendapatkan tahun bulan tanggal sekarang
+// mendapatkan jam sekarang
+const getCurrentDateTime = () => {
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0"); // Bulan dimulai dari 0
+  const day = String(now.getDate()).padStart(2, "0");
+
+  return { year, month, day };
+};
+
+const { year: tahun, month: bulan, day: tanggal } = getCurrentDateTime();
+const tahunBulanTanggalNow = `${tahun}-${bulan}-${tanggal}`;
+
 export const Jam = () => {
   // redux
   const dateSelector = useSelector((state: RootState) => state.date);
@@ -51,7 +66,9 @@ export const Jam = () => {
 
   const popupFunction = (jam: Number, id: number) => {
     // =====================================================
+    // jam di yangdi booking
     dispatch({ type: "JAM_CHANGE", payload: jam });
+    // id data yang akan di hapus
     dispatch({ type: "JAM_DELETE", payload: id });
 
     // =====================================================
@@ -147,7 +164,9 @@ export const Jam = () => {
           const currentHour = new Date().getHours();
 
           // Tentukan apakah kotak perlu dinonaktifkan
-          const isDisabled = kotakId < currentHour;
+          const isDisabled =
+            dateSelector.tahunbulantanggal == tahunBulanTanggalNow &&
+            kotakId < currentHour;
 
           return (
             <AlertDialogTrigger
