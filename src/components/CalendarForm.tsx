@@ -32,18 +32,11 @@ const FormSchema = z.object({
   }),
 });
 
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { useDispatch } from "react-redux";
 
 export function CalendarForm() {
-  const dateSelector = useSelector((state: RootState) => state.date);
-
-  console.log(dateSelector.tahunbulantanggal);
   //
   const [date, setDate] = useState<String>("");
-
-  // redux menggunakan dispatch untuk mengubah state global
-  const dispatch = useDispatch();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -52,12 +45,11 @@ export function CalendarForm() {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     // formattedDate = 2025-01-24
     const formattedDate = format(data.dob, "yyyy-MM-dd");
-    console.log(formattedDate);
     setDate(formattedDate);
 
-    //
+    // ini akan menampilkan toast
     toast({
-      title: "Silahkan pilih jam main:",
+      title: "Silahkan pilih jam main futsal",
       // description: (
       //   <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
       //     <code className="text-white">{JSON.stringify(data, null, 2)}</code>
@@ -66,11 +58,13 @@ export function CalendarForm() {
     });
   }
 
+  // redux menggunakan dispatch untuk mengubah state global
+  const dispatch = useDispatch();
   const setDateInput = () => {
     dispatch({ type: "DATE_CHANGE_TAHUNBULANTANGGAL", payload: date });
   };
 
-  //
+  // jika terjadi perubahan pada date maka useEffect akan di jalankan
   useEffect(() => {
     setDateInput();
   }, [date]);
