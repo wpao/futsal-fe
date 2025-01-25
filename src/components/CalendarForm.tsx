@@ -32,13 +32,16 @@ const FormSchema = z.object({
   }),
 });
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 export function CalendarForm() {
-  // paozan
+  const dateSelector = useSelector((state: RootState) => state.date);
+
+  console.log(dateSelector.tahunbulantanggal);
+  //
   const [date, setDate] = useState<String>("");
 
-  // redux (by : paozan)
   // redux menggunakan dispatch untuk mengubah state global
   const dispatch = useDispatch();
 
@@ -47,9 +50,9 @@ export function CalendarForm() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    // paozan
+    // formattedDate = 2025-01-24
     const formattedDate = format(data.dob, "yyyy-MM-dd");
-    // console.log(formattedDate);
+    console.log(formattedDate);
     setDate(formattedDate);
 
     //
@@ -63,8 +66,6 @@ export function CalendarForm() {
     });
   }
 
-  // redux (by : paozan)
-  // const dateSelector = useSelector((state: RootState) => state.date);
   const setDateInput = () => {
     dispatch({ type: "DATE_CHANGE_TAHUNBULANTANGGAL", payload: date });
   };
@@ -110,9 +111,13 @@ export function CalendarForm() {
                     mode="single"
                     selected={field.value}
                     onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
+                    // mengatur disabled tanggal sebelum tanggal sekarang
+                    disabled={(date) => {
+                      // Membandingkan hanya tanggal tanpa memperhitungkan waktu
+                      const today = new Date();
+                      today.setHours(0, 0, 0, 0);
+                      return date < today || date < new Date("1900-01-01");
+                    }}
                     initialFocus
                   />
                 </PopoverContent>

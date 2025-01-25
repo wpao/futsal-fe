@@ -25,13 +25,14 @@ export const Jam = () => {
   // redux
   const dateSelector = useSelector((state: RootState) => state.date);
   const jamSelector = useSelector((state: RootState) => state.jam);
+  const buttonSelector = useSelector((state: RootState) => state.check);
 
   // jam
-  const [times, setTimes] = useState([]);
+  const now = new Date();
+  const [times, setTimes] = useState<TypeTime[]>([]);
   const [jamSelesai, setJamSelesai] = useState(jamSelector.timeBooking);
-  // const [refreshJam, setRefreshJam] = useState(jamSelector.timeBooking);
 
-  // redux (by : paozan)
+  // redux
   // redux menggunakan dispatch untuk mengubah state global
   const dispatch = useDispatch();
 
@@ -39,17 +40,52 @@ export const Jam = () => {
   const fetchC = async () => {
     try {
       const response = await axiosInstance.get(
-        "/" + dateSelector.tahunbulantanggal,
+        `/api/booking/all?date=${dateSelector.tahunbulantanggal}`,
       );
-      setTimes(response.data);
+      setTimes(response.data.data);
     } catch (error) {
       console.error("Error fetching products:", error);
       return [];
     }
   };
 
-  const popupFunction = (jam: Number) => {
+  const popupFunction = (jam: Number, id: number) => {
+    // =====================================================
     dispatch({ type: "JAM_CHANGE", payload: jam });
+    dispatch({ type: "JAM_DELETE", payload: id });
+
+    // =====================================================
+    // disable button bookong dan unBooking ketika jam lebih kecil dari jam sekarang
+    // jika jam kotak lebih kecil dari jam sekarang, maka button booking dan unBooking akan disable
+    // jika buttonSelector true maka button booking dan button unBooking akan di disable
+    const hours = String(now.getHours()).padStart(2, "0");
+    const hoursNow = parseInt(hours);
+    if (jam.valueOf() >= hoursNow) {
+      // jika buttonSelector false maka button booking dan button unBooking tidak disable
+      dispatch({ type: "DISABLE_BUTTON_FALSE" });
+    } else {
+      // jika buttonSelector true maka button booking dan button unBooking akan disable
+      dispatch({ type: "DISABLE_BUTTON_TRUE" });
+    }
+
+    // =====================================================
+    // jika sudah terboking, maka akan masuk ke kondisi satu
+    // kondisi ini di buat sebagai acuan untuk mengatur disable buttonpada popup yang muncul ketika kotak di tekan
+    if (id > 0) {
+      // kotak yang tertekan sudah di boking
+      // rubah nilai redux menjadi true
+      // jika true maka button booking akan di disable
+      dispatch({ type: "DISABLE_CHANGE_TRUE" });
+    } else if (id == 0) {
+      // kotak yang tertekan belum di booking
+      // rubah nilai redux menjadi false
+      // jika false maka button unBooking akan di disable
+      dispatch({ type: "DISABLE_CHANGE_FALSE" });
+    }
+
+    // =====================================================
+    // untuk memberi info jika booking jam 24 maka selesainya pada jam 1
+    // kecil kemungkinan orang main futsal di tengah malam
     if (jam == 24) {
       setJamSelesai(1);
     } else {
@@ -57,46 +93,34 @@ export const Jam = () => {
     }
   };
 
-  // jika booking di tekan, console.log(object)
+  // jika booking di tekan
   const onBookingSubmit = async () => {
-    // update data jam db.json
     try {
-      await axiosInstance.patch(
-        `${dateSelector.tahunbulantanggal}/${jamSelector.timeBooking}`,
-        {
-          name: "admin",
-          bayar: true,
-          wa: 98776654321,
-          price: 50000,
-        },
-      );
+      await axiosInstance.post(`/api/booking/create`, {
+        name: "admin",
+        price: 100000,
+        wa: "081907257059",
+        time: jamSelector.timeBooking,
+        date: dateSelector.tahunbulantanggal,
+        isBayar: true,
+      });
 
+      // info berhasil
       alert("Booking berhasil");
 
-      console.log("button booking was clicked");
+      // refresh halaman dengan cara memanggil fungsi fetch
       fetchC();
-
-      // close popup
     } catch (error) {
       console.log(error);
     }
   };
 
-  const unBookingSubmit = async () => {
+  const unBookingSubmit = async (id: number) => {
     // update data jam db.json
     try {
-      await axiosInstance.patch(
-        `${dateSelector.tahunbulantanggal}/${jamSelector.timeBooking}`,
-        {
-          name: "",
-          bayar: false,
-          wa: 0,
-          price: 0,
-        },
-      );
+      await axiosInstance.delete(`/api/booking/delete/${id}`);
 
       alert("unBooking berhasil");
-      console.log("button unBooking was clicked");
       fetchC();
     } catch (error) {
       console.log(error);
@@ -106,30 +130,50 @@ export const Jam = () => {
   // ketika tanggal berubah
   useEffect(() => {
     fetchC();
-    console.log("tanggal berubah");
   }, [dateSelector]);
 
+  //=====================================================
+  // Buat kotak menggunakan ARRAY. buat sebanyak 15 kotak dari angka 8 sampai 22
+  // kotak.id dimulai dari 8
+  const kotakIds = Array.from({ length: 15 }, (_, i) => 8 + i);
   return (
     <AlertDialog>
       <div className="mb-10 mt-10 grid grid-cols-5 items-center gap-2">
-        {times.map((time: typeTime) => (
-          <AlertDialogTrigger key={time.id}>
-            <div
-              onClick={() => popupFunction(time.jam)}
-              key={time.id}
-              className={`flex h-10 w-10 cursor-pointer items-center justify-center border ${
-                time.price > 0 ? "border-red-500 bg-red-100" : "border-gray-300"
-              }`}
+        {kotakIds.map((kotakId) => {
+          // Cari data yang cocok dengan kotakId
+          const data = times.find((time) => time.time === kotakId);
+
+          // Dapatkan jam saat ini
+          const currentHour = new Date().getHours();
+
+          // Tentukan apakah kotak perlu dinonaktifkan
+          const isDisabled = kotakId < currentHour;
+
+          return (
+            <AlertDialogTrigger
+              key={kotakId}
+              className="flex flex-col items-center"
             >
-              {time.jam}
-            </div>
-          </AlertDialogTrigger>
-        ))}
+              <div
+                onClick={() => popupFunction(kotakId, data?.id ?? 0)}
+                className={`flex h-10 w-10 items-center justify-center border ${
+                  isDisabled
+                    ? "cursor-not-allowed border-gray-300 bg-gray-200"
+                    : (data?.price ?? 0) > 0
+                      ? "cursor-pointer border-red-500 bg-red-100"
+                      : "cursor-pointer border-gray-300"
+                }`}
+              >
+                {data ? data.time : kotakId}
+              </div>
+            </AlertDialogTrigger>
+          );
+        })}
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              Jam : {String(jamSelector.timeBooking)} - {String(jamSelesai)} |
-              date : {dateSelector.tahunbulantanggal}
+              Jam : {`${jamSelector.timeBooking}`} - {`${jamSelesai}`} | date :{" "}
+              {dateSelector.tahunbulantanggal}
             </AlertDialogTitle>
             <AlertDialogDescription>
               Silahkan pilih jam yang akan di booking atau unBooking
@@ -138,10 +182,22 @@ export const Jam = () => {
           <AlertDialogFooter>
             <div className="flex justify-around">
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogCancel onClick={unBookingSubmit}>
+              <AlertDialogCancel
+                // status terbooking atau belum || jam lebih kecil atau lebih besar
+                disabled={!buttonSelector.chack || buttonSelector.disableButton}
+                onClick={() =>
+                  unBookingSubmit(jamSelector.timeDelete.valueOf())
+                }
+              >
+                {/* disable ketika jam lebih kecil && belum terbooking */}
                 unBooking
               </AlertDialogCancel>
-              <AlertDialogCancel onClick={onBookingSubmit}>
+              <AlertDialogCancel
+                // status terbooking atau belum || jam lebih kecil atau lebih besar
+                disabled={buttonSelector.chack || buttonSelector.disableButton}
+                onClick={onBookingSubmit}
+              >
+                {/* disable ketika jam lebih kecil && sudah terbooking */}
                 Booking
               </AlertDialogCancel>
             </div>
@@ -152,10 +208,10 @@ export const Jam = () => {
   );
 };
 
-//
-type typeTime = {
+type TypeTime = {
   id: number;
   name: string;
+  time: number;
   price: number;
-  jam: number;
+  kotakId: number;
 };

@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 // import CheckPage from "./pages/CheckPage";
 import InfoPage from "./pages/InfoPage";
 import { Header } from "./components/Header";
-import JamPage from "./pages/admin/JamPage";
+import JamPage from "./pages/admin/HomePage";
 
 function App() {
   return (

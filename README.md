@@ -118,137 +118,19 @@ Feel free to fork the project and submit pull requests. Contributions are welcom
 
 ## API
 
-### req jam
+<!-- https://futsal.authenticrinjani.com/api/booking/create -->
 
 ```ts
-http://localhost:2000/2025-01-12
+https://futsal.authenticrinjani.com/api/booking/all
+https://futsal.authenticrinjani.com/api/booking/create
+https://futsal.authenticrinjani.com/api/booking/delete/{id}
 
-```
-
-response = jam di dalam tanggal
-
-```json
 {
-  "2025-01-12": [
-    {
-      "id": "8",
-      "name": "",
-      "price": 0,
-      "wa": 0,
-      "jam": 8,
-      "bayar": false
-    },
-    {
-      "id": "9",
-      "name": "",
-      "price": 0,
-      "wa": 0,
-      "jam": 9,
-      "bayar": false
-    },
-    {
-      "id": "10",
-      "name": "Chloe",
-      "price": 50000,
-      "wa": 821456789034,
-      "jam": 10,
-      "bayar": true
-    },
-    {
-      "id": "11",
-      "name": "William",
-      "price": 0,
-      "wa": 821456789035,
-      "jam": 11,
-      "bayar": false
-    },
-    {
-      "id": "12",
-      "name": "",
-      "price": 0,
-      "wa": 0,
-      "jam": 12,
-      "bayar": false
-    },
-    {
-      "id": "13",
-      "name": "Emily",
-      "price": 0,
-      "wa": 821456789036,
-      "jam": 13,
-      "bayar": false
-    },
-    {
-      "id": "14",
-      "name": "Sebastian",
-      "price": 0,
-      "wa": 821456789037,
-      "jam": 14,
-      "bayar": false
-    },
-    {
-      "id": "15",
-      "name": "",
-      "price": 0,
-      "wa": 0,
-      "jam": 15,
-      "bayar": false
-    },
-    {
-      "id": "16",
-      "name": "",
-      "price": 0,
-      "wa": 0,
-      "jam": 16,
-      "bayar": false
-    },
-    {
-      "id": "17",
-      "name": "Aiden",
-      "price": 0,
-      "wa": 821456789039,
-      "jam": 17,
-      "bayar": false
-    },
-    {
-      "id": "18",
-      "name": "",
-      "price": 0,
-      "wa": 0,
-      "jam": 18,
-      "bayar": false
-    },
-    {
-      "id": "19",
-      "name": "Victoria",
-      "price": 50000,
-      "wa": 821456789040,
-      "jam": 19,
-      "bayar": true
-    },
-    {
-      "id": "20",
-      "name": "Elijah",
-      "price": 0,
-      "wa": 821456789041,
-      "jam": 20,
-      "bayar": false
-    },
-    {
-      "id": "21",
-      "name": "",
-      "price": 0,
-      "wa": 0,
-      "jam": 21,
-      "bayar": false
-    },
-    {
-      "id": "22",
-      "name": "",
-      "price": 50000,
-      "wa": 98776654321,
-      "jam": 22,
-      "bayar": true
-    }
-  ],
+  "name": "admin",
+  "price": 100000,
+  "wa": "081907257059",
+  "time": 22,
+  "date": "2025-01-22",
+  "isBayar": true
+}
 ```
