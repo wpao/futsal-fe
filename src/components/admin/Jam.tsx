@@ -77,28 +77,29 @@ export const Jam = () => {
     dispatch({ type: "JAM_DELETE", payload: id });
 
     // =====================================================
-    // disable button (bookong dan unBooking)
-    // jika tahun-bulan-tanggal sama dengan tahun-bulan-tanggal sekarang
+    // jika (tahun-bulan-tanggal yang di click) sama dengan (tahun-bulan-tanggal sekarang)
     if (dateSelector.tahunbulantanggal == tahunBulanTanggalNow) {
-      // jika buttonSelector false maka button (booking dan unBooking) tidak disable
-      if (jam.valueOf() >= jamNow) {
-        dispatch({ type: "DISABLE_BUTTON_FALSE" });
-      } else {
-        // jika jam kotak < dari jam sekarang, maka button (booking dan unBooking) akan disable
-        // jika buttonSelector true maka button booking dan button unBooking akan disable
+      // jika (jam kotak) < dari (jam sekarang), maka button (booking dan unBooking pada popup) akan disable
+      if (jam.valueOf() <= jamNow) {
         dispatch({ type: "DISABLE_BUTTON_TRUE" });
+      } else {
+        // jika buttonSelector false maka button (booking dan unBooking pada popup) un-disable
+        dispatch({ type: "DISABLE_BUTTON_FALSE" });
       }
+    } else {
+      // jika tahun-bulan-tanggal yang di click > tahun-bulan-tanggal sekarang, maka jangan disable button (booking dan unBooking pada popup)
+      dispatch({ type: "DISABLE_BUTTON_FALSE" });
     }
 
     // =====================================================
     // jika sudah terboking, maka akan masuk ke kondisi satu
-    // kondisi ini di buat sebagai acuan untuk mengatur disable buttonpada popup yang muncul ketika kotak di tekan
-    if (id > 0) {
+    // kondisi ini di buat sebagai acuan untuk mengatur disable button pada popup yang muncul ketika kotak di tekan
+    if (id) {
       // kotak yang tertekan sudah di boking
       // rubah nilai redux menjadi true
       // jika true maka button booking akan di disable
       dispatch({ type: "DISABLE_CHANGE_TRUE" });
-    } else if (id == 0) {
+    } else {
       // kotak yang tertekan belum di booking
       // rubah nilai redux menjadi false
       // jika false maka button unBooking akan di disable
