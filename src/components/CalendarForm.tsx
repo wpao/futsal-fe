@@ -95,7 +95,7 @@ export function CalendarForm() {
                         format(field.value, "yyyy-MM-dd")
                       ) : (
                         // format(field.value, "PPP")
-                        <span>Pick a date</span>
+                        <span>Pilih tanggal</span>
                       )}
                       <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                     </Button>
