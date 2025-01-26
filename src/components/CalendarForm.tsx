@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { cn } from "@/lib/utils";
-import { toast } from "@//hooks/use-toast";
+// import { toast } from "@//hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -43,19 +43,19 @@ export function CalendarForm() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    // formattedDate = 2025-01-24
     const formattedDate = format(data.dob, "yyyy-MM-dd");
+    // formattedDate = 2025-01-24
     setDate(formattedDate);
 
     // ini akan menampilkan toast
-    toast({
-      title: "Silahkan pilih jam main futsal",
-      // description: (
-      //   <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-      //     <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-      //   </pre>
-      // ),
-    });
+    // toast({
+    //   title: "Silahkan pilih jam main futsal",
+    // description: (
+    //   <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+    //     <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+    //   </pre>
+    // ),
+    // });
   }
 
   // redux menggunakan dispatch untuk mengubah state global
@@ -80,7 +80,7 @@ export function CalendarForm() {
           name="dob"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Date of birth</FormLabel>
+              <FormLabel>Tanggal Bookong</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -92,8 +92,9 @@ export function CalendarForm() {
                       )}
                     >
                       {field.value ? (
-                        format(field.value, "PPP")
+                        format(field.value, "yyyy-MM-dd")
                       ) : (
+                        // format(field.value, "PPP")
                         <span>Pick a date</span>
                       )}
                       <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
@@ -105,7 +106,7 @@ export function CalendarForm() {
                     mode="single"
                     selected={field.value}
                     onSelect={field.onChange}
-                    // mengatur disabled tanggal sebelum tanggal sekarang
+                    // disabled tanggal sebelum tanggal sekarang
                     disabled={(date) => {
                       // Membandingkan hanya tanggal tanpa memperhitungkan waktu
                       const today = new Date();
@@ -117,7 +118,7 @@ export function CalendarForm() {
                 </PopoverContent>
               </Popover>
               <FormDescription>
-                Your date of birth is used to calculate your age.
+                Silahkan pilih tanggal booking Futsal
               </FormDescription>
               <FormMessage />
             </FormItem>

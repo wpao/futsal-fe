@@ -23,7 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-# from gitignore.io
+# FROM gitignore.io
 # Created by https://www.toptal.com/developers/gitignore/api/linux,visualstudiocode,react
 # Edit at https://www.toptal.com/developers/gitignore?templates=linux,visualstudiocode,react
 
@@ -78,3 +78,6 @@ sketch
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/linux,visualstudiocode,react
+
+# FROM ME
+note.tldr

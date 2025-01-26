@@ -162,7 +162,8 @@ export const Jam = () => {
 
   return (
     <AlertDialog>
-      <div className="mb-10 mt-10 grid grid-cols-5 items-center gap-2">
+      <h1 className="mb-2 mt-10">Jam</h1>
+      <div className="grid grid-cols-5 items-center gap-2">
         {kotakIds.map((kotakId) => {
           // Cari data yang cocok dengan kotakId
           const data = times.find((time) => time.time === kotakId);
