@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import InfoPage from "./pages/InfoPage";
 import { Header } from "./components/Header";
 import JamPage from "./pages/admin/HomePage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" Component={HomePage} />
         {/* <Route path="/check" Component={CheckPage} /> */}
         <Route path="/info" Component={InfoPage} />
+        <Route path="/login" Component={LoginPage} />
         <Route path="/admin">
           <Route path="edit/" Component={JamPage} />
           <Route path="810009/:jamId" Component={JamPage} />

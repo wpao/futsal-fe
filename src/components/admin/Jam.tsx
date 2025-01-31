@@ -50,13 +50,16 @@ export const Jam = () => {
 
   // jam
   const [times, setTimes] = useState<TypeTime[]>([]);
+
+  // mengatur jika jam yang di pilih 24 maka jam selesai akan menjadi 01
+  // mengatur penambahan 1 jam dari jam yang di pilih untuk di tampilkan
   const [jamSelesai, setJamSelesai] = useState(jamSelector.timeBooking);
 
   // redux
   // redux menggunakan dispatch untuk mengubah state global
   const dispatch = useDispatch();
 
-  // jam get
+  // mendapatkan jam dari tahun-bulan-tanggal yang di pilih
   const fetchC = async () => {
     try {
       const response = await axiosInstance.get(
@@ -69,6 +72,7 @@ export const Jam = () => {
     }
   };
 
+  // ketika kotak jam di tekan akan memunculkan popup ini
   const popupFunction = (jam: Number, id: number) => {
     // =====================================================
     // jam di yangdi booking
@@ -77,8 +81,8 @@ export const Jam = () => {
     dispatch({ type: "JAM_DELETE", payload: id });
 
     // =====================================================
-    // jika (tahun-bulan-tanggal yang di click) sama dengan (tahun-bulan-tanggal sekarang)
     if (dateSelector.tahunbulantanggal == tahunBulanTanggalNow) {
+      // kondisi ini untuk mengatur disable 2 button
       // jika (jam kotak) < dari (jam sekarang), maka button (booking dan unBooking pada popup) akan disable
       if (jam.valueOf() <= jamNow) {
         dispatch({ type: "DISABLE_BUTTON_TRUE" });
@@ -92,17 +96,14 @@ export const Jam = () => {
     }
 
     // =====================================================
-    // jika sudah terboking, maka akan masuk ke kondisi satu
-    // kondisi ini di buat sebagai acuan untuk mengatur disable button pada popup yang muncul ketika kotak di tekan
+    // kondisi ini untuk mengatur disable button
     if (id) {
-      // kotak yang tertekan sudah di boking
-      // rubah nilai redux menjadi true
-      // jika true maka button booking akan di disable
+      // kotak yang tertekan sudah di booking
+      // jika true maka button booking akan di disable (button dalam popup)
       dispatch({ type: "DISABLE_CHANGE_TRUE" });
     } else {
       // kotak yang tertekan belum di booking
-      // rubah nilai redux menjadi false
-      // jika false maka button unBooking akan di disable
+      // jika false maka button unBooking akan di disable (button dalam popup)
       dispatch({ type: "DISABLE_CHANGE_FALSE" });
     }
 
@@ -172,7 +173,7 @@ export const Jam = () => {
           let isDisabled = false;
           if (
             dateSelector.tahunbulantanggal == tahunBulanTanggalNow &&
-            kotakId < jamNow
+            kotakId <= jamNow
           ) {
             isDisabled = true;
           }

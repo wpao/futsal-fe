@@ -7,6 +7,27 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { useEffect, useState } from "react";
 
+// mendapatkan tahun bulan tanggal sekarang
+// mendapatkan jam sekarang
+const getCurrentDateTime = () => {
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0"); // Bulan dimulai dari 0
+  const day = String(now.getDate()).padStart(2, "0");
+  const hour = now.getHours();
+
+  return { year, month, day, hour };
+};
+
+const {
+  year: tahun,
+  month: bulan,
+  day: tanggal,
+  hour: jamNow,
+} = getCurrentDateTime();
+const tahunBulanTanggalNow = `${tahun}-${bulan}-${tanggal}`;
+
 export const Jam = () => {
   // redux
   const dateSelector = useSelector((state: RootState) => state.date);
@@ -44,11 +65,20 @@ export const Jam = () => {
           // Cari data yang cocok dengan kotakId
           const data = times.find((time) => time.time === kotakId);
 
-          // Dapatkan jam saat ini
-          const currentHour = new Date().getHours();
+          // // Dapatkan jam saat ini
+          // const currentHour = new Date().getHours();
 
-          // Tentukan apakah kotak perlu dinonaktifkan
-          const isDisabled = kotakId < currentHour;
+          // // Tentukan apakah kotak perlu dinonaktifkan
+          // const isDisabled = kotakId <= currentHour;
+
+          // Tentukan apakah kotak diberi tanda disable(css)
+          let isDisabled = false;
+          if (
+            dateSelector.tahunbulantanggal == tahunBulanTanggalNow &&
+            kotakId <= jamNow
+          ) {
+            isDisabled = true;
+          }
 
           return (
             <div key={kotakId} className="flex flex-col items-center">
