@@ -3,7 +3,7 @@ import { userReducer } from './user'
 import { changeReducer } from './date'
 import { jamReducer } from './jam'
 import { disableReducer } from './disable'
-import { counterReducer } from './counter'
+import { adminReducer } from './admin'
 
 
 export const reducers = combineReducers({
@@ -12,7 +12,7 @@ export const reducers = combineReducers({
   date: changeReducer,
   jam: jamReducer,
   check: disableReducer,
-  counter: counterReducer
+  admin: adminReducer
 })
 
 // types

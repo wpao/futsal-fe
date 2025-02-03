@@ -1,3 +1,11 @@
+### change code
+
+silahkan truh task dengan urutan ASC
+
+- membuat simulasi login menggunakan fake API (sedang di kerjakan)
+- enpoin add admin not yet (belum di kerjakan)
+- gunakan satu HomePage (belum di kerjakan)
+
 ## about project
 
 app booking Futsal
@@ -22,11 +30,6 @@ This is a React TypeScript project built with the following technologies:
 - [pnpm](https://pnpm.io) as the package manager.
 - [Redux](https://redux.js.org) for state management.
 
-## Features
-
-- ShadCN Calendar Component: A customizable calendar component integrated into the project.
-- Fake API: json-server is used to mock a backend API for testing purposes.
-
 ## Getting Started
 
 ### Prerequisites
@@ -49,15 +52,13 @@ Ensure you have the following installed on your machine:
 3. Install dependencies:
    ```bash
    pnpm install
-   pnpm add json-server
    ```
 
 ### Running the Project
 
 1. Start the fake API server:
    ```bash
-   pnpm exec json-server -p 2000 db.json #or
-   pnpm json-server --watch db.json --port 2000
+   pnpm exec json-server -p 2000 db.json
    ```
 2. Start the development server:
    ```bash
@@ -65,40 +66,6 @@ Ensure you have the following installed on your machine:
    pnpm run dev
    ```
 3. Open your browser and navigate to `http://localhost:5173`.
-
-## Folder Structure
-
-```
-auu-futsal
-├─ src
-│  ├─ App.tsx
-│  ├─ assets
-│  │  └─ react.svg
-│  ├─ components
-│  │  ├─ CalendarForm.tsx
-│  │  ├─ Jam.tsx
-│  │  └─ ui
-│  ├─ hooks
-│  │  └─ use-toast.ts
-│  ├─ index.css
-│  ├─ lib
-│  │  ├─ axios.ts
-│  │  └─ utils.ts
-│  ├─ main.tsx
-│  ├─ pages
-│  │  └─ HomePage.tsx
-│  ├─ store
-│  │  ├─ date.ts
-│  │  ├─ jam.ts
-│  │  ├─ store.ts
-│  └─ vite-env.d.ts
-├─ tailwind.config.js
-├─ tsconfig.app.json
-├─ tsconfig.json
-├─ tsconfig.node.json
-└─ vite.config.ts
-
-```
 
 ## Social Accounts
 
@@ -115,22 +82,3 @@ This project is licensed under the MIT License. See the LICENSE file for more in
 ## Contributing
 
 Feel free to fork the project and submit pull requests. Contributions are welcome!
-
-## API
-
-<!-- https://futsal.authenticrinjani.com/api/booking/create -->
-
-```ts
-https://futsal.authenticrinjani.com/api/booking/all
-https://futsal.authenticrinjani.com/api/booking/create
-https://futsal.authenticrinjani.com/api/booking/delete/{id}
-
-{
-  "name": "admin",
-  "price": 100000,
-  "wa": "081907257059",
-  "time": 22,
-  "date": "2025-01-22",
-  "isBayar": true
-}
-```
