@@ -32,11 +32,15 @@ export const Jam = () => {
   // redux
   const dateSelector = useSelector((state: RootState) => state.date);
 
+  // loading..
+  const [productIsLoading, setProductIsLoading] = useState(false);
+
   // jam
   const [times, setTimes] = useState<TypeTime[]>([]);
 
   // jam get
   const fetchC = async () => {
+    setProductIsLoading(true);
     try {
       const response = await axiosInstance.get(
         `/api/booking/all?date=${dateSelector.tahunbulantanggal}`,
@@ -45,6 +49,8 @@ export const Jam = () => {
     } catch (error) {
       console.error("Error fetching products:", error);
       return [];
+    } finally {
+      setProductIsLoading(false);
     }
   };
 
@@ -60,43 +66,48 @@ export const Jam = () => {
   return (
     <>
       <h1 className="mb-2 mt-10">Jam</h1>
-      <div className="grid grid-cols-5 items-center gap-2">
-        {kotakIds.map((kotakId) => {
-          // Cari data yang cocok dengan kotakId
-          const data = times.find((time) => time.time === kotakId);
+      {/* membuat Loading.. */}
+      {productIsLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="grid grid-cols-5 items-center gap-2">
+          {kotakIds.map((kotakId) => {
+            // Cari data yang cocok dengan kotakId
+            const data = times.find((time) => time.time === kotakId);
 
-          // // Dapatkan jam saat ini
-          // const currentHour = new Date().getHours();
+            // // Dapatkan jam saat ini
+            // const currentHour = new Date().getHours();
 
-          // // Tentukan apakah kotak perlu dinonaktifkan
-          // const isDisabled = kotakId <= currentHour;
+            // // Tentukan apakah kotak perlu dinonaktifkan
+            // const isDisabled = kotakId <= currentHour;
 
-          // Tentukan apakah kotak diberi tanda disable(css)
-          let isDisabled = false;
-          if (
-            dateSelector.tahunbulantanggal == tahunBulanTanggalNow &&
-            kotakId <= jamNow
-          ) {
-            isDisabled = true;
-          }
+            // Tentukan apakah kotak diberi tanda disable(css)
+            let isDisabled = false;
+            if (
+              dateSelector.tahunbulantanggal == tahunBulanTanggalNow &&
+              kotakId <= jamNow
+            ) {
+              isDisabled = true;
+            }
 
-          return (
-            <div key={kotakId} className="flex flex-col items-center">
-              <div
-                className={`flex h-10 w-10 items-center justify-center border ${
-                  isDisabled
-                    ? "cursor-not-allowed border-gray-300 bg-gray-200"
-                    : (data?.price ?? 0) > 0
-                      ? "border-red-500 bg-red-100"
-                      : "border-gray-300"
-                }`}
-              >
-                {data ? data.time : kotakId}
+            return (
+              <div key={kotakId} className="flex flex-col items-center">
+                <div
+                  className={`flex h-10 w-10 items-center justify-center border ${
+                    isDisabled
+                      ? "cursor-not-allowed border-gray-300 bg-gray-200"
+                      : (data?.price ?? 0) > 0
+                        ? "border-red-500 bg-red-100"
+                        : "border-gray-300"
+                  }`}
+                >
+                  {data ? data.time : kotakId}
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </>
   );
 };

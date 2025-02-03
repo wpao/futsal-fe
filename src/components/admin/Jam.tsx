@@ -48,6 +48,9 @@ export const Jam = () => {
   const jamSelector = useSelector((state: RootState) => state.jam);
   const buttonSelector = useSelector((state: RootState) => state.check);
 
+  // loading..
+  const [productIsLoading, setProductIsLoading] = useState(false);
+
   // jam
   const [times, setTimes] = useState<TypeTime[]>([]);
 
@@ -61,6 +64,7 @@ export const Jam = () => {
 
   // mendapatkan jam dari tahun-bulan-tanggal yang di pilih
   const fetchC = async () => {
+    setProductIsLoading(true);
     try {
       const response = await axiosInstance.get(
         `/api/booking/all?date=${dateSelector.tahunbulantanggal}`,
@@ -69,6 +73,8 @@ export const Jam = () => {
     } catch (error) {
       console.error("Error fetching products:", error);
       return [];
+    } finally {
+      setProductIsLoading(false);
     }
   };
 
@@ -164,75 +170,84 @@ export const Jam = () => {
   return (
     <AlertDialog>
       <h1 className="mb-2 mt-10">Jam</h1>
-      <div className="grid grid-cols-5 items-center gap-2">
-        {kotakIds.map((kotakId) => {
-          // Cari data yang cocok dengan kotakId
-          const data = times.find((time) => time.time === kotakId);
+      {/* Loading.. */}
+      {productIsLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="grid grid-cols-5 items-center gap-2">
+          {kotakIds.map((kotakId) => {
+            // Cari data yang cocok dengan kotakId
+            const data = times.find((time) => time.time === kotakId);
 
-          // Tentukan apakah kotak diberi tanda disable(css)
-          let isDisabled = false;
-          if (
-            dateSelector.tahunbulantanggal == tahunBulanTanggalNow &&
-            kotakId <= jamNow
-          ) {
-            isDisabled = true;
-          }
+            // Tentukan apakah kotak diberi tanda disable(css)
+            let isDisabled = false;
+            if (
+              dateSelector.tahunbulantanggal == tahunBulanTanggalNow &&
+              kotakId <= jamNow
+            ) {
+              isDisabled = true;
+            }
 
-          return (
-            <AlertDialogTrigger
-              key={kotakId}
-              className="flex flex-col items-center"
-            >
-              <div
-                onClick={() => popupFunction(kotakId, data?.id ?? 0)}
-                className={`flex h-10 w-10 items-center justify-center border ${
-                  isDisabled
-                    ? "cursor-not-allowed border-gray-300 bg-gray-200"
-                    : (data?.price ?? 0) > 0
-                      ? "cursor-pointer border-red-500 bg-red-100"
-                      : "cursor-pointer border-gray-300"
-                }`}
+            return (
+              <AlertDialogTrigger
+                key={kotakId}
+                className="flex flex-col items-center"
               >
-                {data ? data.time : kotakId}
+                <div
+                  onClick={() => popupFunction(kotakId, data?.id ?? 0)}
+                  className={`flex h-10 w-10 items-center justify-center border ${
+                    isDisabled
+                      ? "cursor-not-allowed border-gray-300 bg-gray-200"
+                      : (data?.price ?? 0) > 0
+                        ? "cursor-pointer border-red-500 bg-red-100"
+                        : "cursor-pointer border-gray-300"
+                  }`}
+                >
+                  {data ? data.time : kotakId}
+                </div>
+              </AlertDialogTrigger>
+            );
+          })}
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>
+                Jam : {`${jamSelector.timeBooking}`} - {`${jamSelesai}`} | date
+                : {dateSelector.tahunbulantanggal}
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                Silahkan pilih jam yang akan di booking atau unBooking
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <div className="flex justify-around">
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel
+                  // status terbooking atau belum || jam lebih kecil atau lebih besar
+                  disabled={
+                    !buttonSelector.chack || buttonSelector.disableButton
+                  }
+                  onClick={() =>
+                    unBookingSubmit(jamSelector.timeDelete.valueOf())
+                  }
+                >
+                  {/* disable ketika jam lebih kecil && belum terbooking */}
+                  unBooking
+                </AlertDialogCancel>
+                <AlertDialogCancel
+                  // status terbooking atau belum || jam lebih kecil atau lebih besar
+                  disabled={
+                    buttonSelector.chack || buttonSelector.disableButton
+                  }
+                  onClick={onBookingSubmit}
+                >
+                  {/* disable ketika jam lebih kecil && sudah terbooking */}
+                  Booking
+                </AlertDialogCancel>
               </div>
-            </AlertDialogTrigger>
-          );
-        })}
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>
-              Jam : {`${jamSelector.timeBooking}`} - {`${jamSelesai}`} | date :{" "}
-              {dateSelector.tahunbulantanggal}
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              Silahkan pilih jam yang akan di booking atau unBooking
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <div className="flex justify-around">
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogCancel
-                // status terbooking atau belum || jam lebih kecil atau lebih besar
-                disabled={!buttonSelector.chack || buttonSelector.disableButton}
-                onClick={() =>
-                  unBookingSubmit(jamSelector.timeDelete.valueOf())
-                }
-              >
-                {/* disable ketika jam lebih kecil && belum terbooking */}
-                unBooking
-              </AlertDialogCancel>
-              <AlertDialogCancel
-                // status terbooking atau belum || jam lebih kecil atau lebih besar
-                disabled={buttonSelector.chack || buttonSelector.disableButton}
-                onClick={onBookingSubmit}
-              >
-                {/* disable ketika jam lebih kecil && sudah terbooking */}
-                Booking
-              </AlertDialogCancel>
-            </div>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </div>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </div>
+      )}
     </AlertDialog>
   );
 };
