@@ -3,13 +3,13 @@ import { SignedInPage } from "@/components/guard/SignedInPage";
 import { Jam } from "@/components/Jam";
 
 // redux
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 const HomePage = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // supaya home mengarah ke /
-  dispatch({ type: "USER_UN_CHANGE" });
+  // dispatch({ type: "USER_UN_CHANGE" });
 
   return (
     // SignedInPage berarti bahwa :

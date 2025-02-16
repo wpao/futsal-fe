@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/lib/axios";
+// import { axiosInstance } from "@/lib/axios";
 
 // redux
 import { useSelector } from "react-redux";
@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 // redux
 import { RootState } from "../store/store";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 // mendapatkan tahun bulan tanggal sekarang
 // mendapatkan jam sekarang
@@ -42,9 +43,12 @@ export const Jam = () => {
   const fetchC = async () => {
     setProductIsLoading(true);
     try {
-      const response = await axiosInstance.get(
-        `/api/booking/all?date=${dateSelector.tahunbulantanggal}`,
+      const response = await axios.get(
+        `http://localhost:3000/bookings/filter?date=${dateSelector.tahunbulantanggal}`,
       );
+      // const response = await axiosInstance.get(
+      //   `/api/booking/all?date=${dateSelector.tahunbulantanggal}`,
+      // );
       setTimes(response.data.data);
     } catch (error) {
       console.error("Error fetching products:", error);

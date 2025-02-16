@@ -1,14 +1,18 @@
-### change code
+## Task
 
-silahkan truh task dengan urutan ASC
+- ui for desktop
+- ui for tablet
+- make this project run with docker
+- consume API JWT
+- sesuaikan table user
 
-- membuat simulasi login menggunakan fake API (sedang di kerjakan)
-- enpoin add admin not yet (belum di kerjakan)
-- gunakan satu HomePage (belum di kerjakan)
+## About
 
-## about project
+- Aplikasi ini berfungsi untuk memberitahu orang apakah Jam pada Futsal tertentu telah terboking atau belum
 
-app booking Futsal
+- Aplikasi ini membantu supaya orang tidak harus pergi ke tempat Futsal untuk menanyakan Jam kosong
+
+- Aplikasi ini untuk meminimalisir chat yang masuk ke Admin Futsal mengenai Jam kosong atau status Futsal (Open or Close)
 
 ## extension
 
@@ -20,7 +24,7 @@ use this extension for eazy to develop
 - Material Icon Theme
 - Auto Rename Tag
 
-# Project React-TS with ShadCN and TailwindCSS
+## Project React-TS with ShadCN and TailwindCSS
 
 This is a React TypeScript project built with the following technologies:
 
@@ -30,42 +34,23 @@ This is a React TypeScript project built with the following technologies:
 - [pnpm](https://pnpm.io) as the package manager.
 - [Redux](https://redux.js.org) for state management.
 
-## Getting Started
+## run
 
-### Prerequisites
+Start the development server:
 
-Ensure you have the following installed on your machine:
+```bash
+pnpm dev
+```
 
-- Node.js (v16 or newer)
-- pnpm (v8 or newer)
+Open your browser and navigate to `http://localhost:5173`.
 
-### Installation
+## API
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd <project-directory>
-   ```
-3. Install dependencies:
-   ```bash
-   pnpm install
-   ```
+### Sumber API consume
 
-### Running the Project
-
-1. Start the fake API server:
-   ```bash
-   pnpm exec json-server -p 2000 db.json
-   ```
-2. Start the development server:
-   ```bash
-   pnpm dev #or
-   pnpm run dev
-   ```
-3. Open your browser and navigate to `http://localhost:5173`.
+- https://futsal.authenticrinjani.com -> niagahoster
+- http://localhost:3000/users -> prisma docker postgresql
+- http://localhost:2000/users -> run fake API (json-server)
 
 ## Social Accounts
 
@@ -74,11 +59,3 @@ Stay connected for updates and more projects:
 - **GitHub**: <a href="https://github.com/wpao" target="_blank">github.com/wpao</a>
 - **YouTube**: <a href="https://www.youtube.com/@codesal-54" target="_blank">youtube.com/@codesal-54</a>
 - **Instagram**: <a href="https://www.instagram.com/paozanwa22/" target="_blank">instagram.com/paozanwa22</a>
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for more information.
-
-## Contributing
-
-Feel free to fork the project and submit pull requests. Contributions are welcome!

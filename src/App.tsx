@@ -3,7 +3,7 @@ import HomePage from "./pages/HomePage";
 import { Toaster } from "@/components/ui/toaster";
 import InfoPage from "./pages/InfoPage";
 import { Header } from "./components/Header";
-import JamPage from "./pages/admin/HomePage";
+import JamPage from "./pages/admin/JamPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { useHydration } from "./hooks/useHydration";

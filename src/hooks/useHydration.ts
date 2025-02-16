@@ -23,15 +23,16 @@ export const useHydration = () => {
         if (!currentUser) return;
   
         // ambil data user berdasarkan id
-        const userResponse = await axios.get("http://localhost:2000/users/" + currentUser);
+        const userResponse = await axios.get(`http://localhost:3000/users/${currentUser}`);
+        // console.log(userResponse.data.data)
   
         // simpan data user ke redux
         dispatch({
           type: "ADMIN_LOGIN",
           payload: {
-            username: userResponse.data.username,
-            id: userResponse.data.id,
-            role: userResponse.data.role,
+            username: userResponse.data.data.username,
+            id: userResponse.data.data.id,
+            role: userResponse.data.data.role,
           },
         });
       } catch (error) {

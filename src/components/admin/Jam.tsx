@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import { useDispatch } from "react-redux";
+import axios from "axios";
 
 // mendapatkan tahun bulan tanggal sekarang
 // mendapatkan jam sekarang
@@ -63,11 +64,27 @@ export const Jam = () => {
   const dispatch = useDispatch();
 
   // mendapatkan jam dari tahun-bulan-tanggal yang di pilih
+  // const fetchC = async () => {
+  //   setProductIsLoading(true);
+  //   try {
+  //     const response = await axiosInstance.get(
+  //       `/api/booking/all?date=${dateSelector.tahunbulantanggal}`,
+  //     );
+  //     setTimes(response.data.data);
+  //   } catch (error) {
+  //     console.error("Error fetching products:", error);
+  //     return [];
+  //   } finally {
+  //     setProductIsLoading(false);
+  //   }
+  // };
+
+  // fetch data from http://localhost:3000/booking API Docker postgresql
   const fetchC = async () => {
     setProductIsLoading(true);
     try {
-      const response = await axiosInstance.get(
-        `/api/booking/all?date=${dateSelector.tahunbulantanggal}`,
+      const response = await axios.get(
+        `http://localhost:3000/bookings/filter?date=${dateSelector.tahunbulantanggal}`,
       );
       setTimes(response.data.data);
     } catch (error) {
@@ -124,10 +141,34 @@ export const Jam = () => {
   };
 
   // jika booking di tekan
+  // add data to API Reinjadi Sharing tour
+  // const onBookingSubmit = async () => {
+  //   try {
+  //     await axiosInstance.post(`/api/booking/create`, {
+  //       name: "admin",
+  //       price: 100000,
+  //       wa: "081907257059",
+  //       time: jamSelector.timeBooking,
+  //       date: dateSelector.tahunbulantanggal,
+  //       isBayar: true,
+  //     });
+
+  //     // info berhasil
+  //     alert("Booking berhasil");
+
+  //     // refresh halaman dengan cara memanggil fungsi fetch
+  //     fetchC();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // jika booking di tekan
+  // add data to http://localhost:3000/booking API Docker postgresql
   const onBookingSubmit = async () => {
     try {
-      await axiosInstance.post(`/api/booking/create`, {
-        name: "admin",
+      await axios.post(`http://localhost:3000/bookings`, {
+        username: "admin",
         price: 100000,
         wa: "081907257059",
         time: jamSelector.timeBooking,
@@ -146,9 +187,8 @@ export const Jam = () => {
   };
 
   const unBookingSubmit = async (id: number) => {
-    // update data jam db.json
     try {
-      await axiosInstance.delete(`/api/booking/delete/${id}`);
+      await axios.delete(`http://localhost:3000/bookings/delete/${id}`);
 
       alert("unBooking berhasil");
       fetchC();

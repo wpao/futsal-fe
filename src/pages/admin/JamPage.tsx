@@ -4,16 +4,16 @@ import { AdminPage } from "@/components/guard/AdminPage";
 // import { useState } from "react";
 
 // redux
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 const JamPage = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // Loading...
   // const [timesIsLoading, setTimesIsLoading] = useState(false);
 
   // supaya home mengarah ke admin/edit
-  dispatch({ type: "USER_CHANGE" });
+  // dispatch({ type: "USER_CHANGE" });
 
   return (
     <AdminPage>

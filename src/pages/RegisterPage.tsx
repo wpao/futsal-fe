@@ -53,27 +53,11 @@ const RegisterPage = () => {
 
   const handleRegister = async (values: RegisterValues) => {
     try {
-      // cek apakah username sudah ada atau belum (ini seharus-nya dari backend)
-      // const userResponse = await axiosInstance.get("users", {
-      const userResponse = await axios.get("http://localhost:2000/users", {
-        params: {
-          username: values.username,
-        },
-      });
-
-      if (userResponse.data.length) {
-        alert("Username already taken");
-
-        // hentikan proses
-        return;
-      }
-
       // post user ke fake api db.json
-      // await axiosInstance.post("/users", {
-      await axios.post("http://localhost:2000/users", {
+      await axios.post("http://localhost:3000/users", {
         username: values.username,
         password: values.password,
-        role: "user",
+        role: "admin",
       });
 
       alert("User created successfully");
