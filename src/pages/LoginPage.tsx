@@ -90,6 +90,9 @@ const LoginPage = () => {
       // ini di pakai untuk melihat user yang login
       localStorage.setItem("current-user", userResponse.data.data.id);
 
+      // ini di gunakan untuk mendapatkan info lapangan
+      localStorage.setItem("lapangan-change", userResponse.data.data.id);
+
       // simpan data user ke redux
       dispatch({
         type: "ADMIN_LOGIN",
@@ -125,9 +128,16 @@ const LoginPage = () => {
                   name="username"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Username</FormLabel>
+                      <FormLabel htmlFor={field.name}>Username</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input
+                          id={field.name}
+                          type="text"
+                          placeholder="Username"
+                          autoComplete="off"
+                          {...field}
+                          autoFocus
+                        />
                       </FormControl>
                       <FormDescription />
                       <FormMessage />
@@ -140,9 +150,11 @@ const LoginPage = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel htmlFor={field.name}>Password</FormLabel>
                       <FormControl>
                         <Input
+                          id={field.name}
+                          placeholder="Password"
                           {...field}
                           type={isChecked ? "text" : "password"}
                         />

@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/lib/axios";
+// import { axiosInstance } from "@/lib/axios";
 
 // redux
 import { useSelector } from "react-redux";
@@ -80,11 +80,14 @@ export const Jam = () => {
   // };
 
   // fetch data from http://localhost:3000/booking API Docker postgresql
+  // GET /bookings/filter?date=2025-02-19&idUser=1f746f94-0c8e-4360-8b1d-8d70ec62418f
   const fetchC = async () => {
+    // dapatkan data current-user yang login dari localStorage
+    const currentUser = localStorage.getItem("current-user");
     setProductIsLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:3000/bookings/filter?date=${dateSelector.tahunbulantanggal}`,
+        `http://localhost:3000/bookings/filter?date=${dateSelector.tahunbulantanggal}&idUser=${currentUser}`,
       );
       setTimes(response.data.data);
     } catch (error) {
@@ -166,11 +169,19 @@ export const Jam = () => {
   // jika booking di tekan
   // add data to http://localhost:3000/booking API Docker postgresql
   const onBookingSubmit = async () => {
+    // dapatkan data user yang login
+    const user = localStorage.getItem("current-user");
+
+    // datatkan user berdasarkan id
+    const userResponse = await axios.get(`http://localhost:3000/users/${user}`);
+
+    // kirim data ke API Docker postgresql menggunakan axios
     try {
       await axios.post(`http://localhost:3000/bookings`, {
-        username: "admin",
+        idUser: userResponse.data.data.id,
+        username: userResponse.data.data.username,
         price: 100000,
-        wa: "081907257059",
+        wa: userResponse.data.data.wa,
         time: jamSelector.timeBooking,
         date: dateSelector.tahunbulantanggal,
         isBayar: true,

@@ -28,6 +28,14 @@ const registerFormSchema = z
       .string()
       .min(3, "Username must be at least 3 characters")
       .max(6),
+    wa: z
+      .string()
+      .min(10, "WA must be at least 10 characters")
+      .max(12, "WA must be at most 12 characters"),
+    namaLapangan: z
+      .string()
+      .min(3, "Lapangan must be at least 3 characters")
+      .max(20),
     password: z.string().min(8, "Password must be at least 8 characters"),
     repeatPassword: z.string().min(8, "Password must be at least 8 characters"),
   })
@@ -45,6 +53,8 @@ const RegisterPage = () => {
   const form = useForm({
     defaultValues: {
       username: "",
+      wa: "",
+      namaLapangan: "",
       password: "",
       repeatPassword: "",
     },
@@ -53,22 +63,30 @@ const RegisterPage = () => {
 
   const handleRegister = async (values: RegisterValues) => {
     try {
-      // post user ke fake api db.json
+      // post user ke docker postgresql
       await axios.post("http://localhost:3000/users", {
         username: values.username,
+        wa: values.wa,
+        namaLapangan: values.namaLapangan,
         password: values.password,
         role: "admin",
       });
 
       alert("User created successfully");
       form.reset();
-    } catch (error) {
+
+      // pindah ke login
+      window.location.href = "/login";
+    } catch (error: any) {
       console.log(error);
+
+      // tangkap message error
+      alert(error.response.data.message);
     }
   };
 
   return (
-    <main className="flex h-[80vh] flex-col items-center justify-center">
+    <main className="mt-10 flex flex-col items-center justify-center">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleRegister)}
@@ -85,6 +103,36 @@ const RegisterPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input {...field} autoFocus />
+                    </FormControl>
+                    <FormDescription />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="wa"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>WA</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormDescription />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="namaLapangan"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nama Lapangan</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -144,5 +192,7 @@ export default RegisterPage;
 // types
 type RegisterValues = {
   username: string;
+  wa: string;
+  namaLapangan: string;
   password: string;
 };

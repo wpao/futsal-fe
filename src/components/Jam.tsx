@@ -33,6 +33,17 @@ export const Jam = () => {
   // redux
   const dateSelector = useSelector((state: RootState) => state.date);
 
+  // ==============
+  // acuan query data berdasarkan idUser(id admin) yang dipilih oleh pengguna
+  // const lapanganSelector = useSelector((state: RootState) => state.lapangan);
+  // console.log(lapanganSelector.idUser);
+
+  // get lapangan-change from localStorage
+  const lapanganStorage = localStorage.getItem("lapangan-change");
+  // console.log(lapanganStorage);
+
+  // --------------
+
   // loading..
   const [productIsLoading, setProductIsLoading] = useState(false);
 
@@ -44,7 +55,8 @@ export const Jam = () => {
     setProductIsLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:3000/bookings/filter?date=${dateSelector.tahunbulantanggal}`,
+        // `http://localhost:3000/bookings/filter?date=${dateSelector.tahunbulantanggal}`,
+        `http://localhost:3000/bookings/filter?date=${dateSelector.tahunbulantanggal}&idUser=${lapanganStorage}`,
       );
       // const response = await axiosInstance.get(
       //   `/api/booking/all?date=${dateSelector.tahunbulantanggal}`,

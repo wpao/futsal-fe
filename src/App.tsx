@@ -7,8 +7,18 @@ import JamPage from "./pages/admin/JamPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { useHydration } from "./hooks/useHydration";
+import DashboardPage from "./pages/DashboardPage";
+import EditTableInfo from "./pages/admin/EditTableInfo";
+// import { EditTableInfo } from "./pages/admin/EditTableInfo";
+import { useLocation } from "react-router-dom";
+import NotFound from "./components/NotFound";
 
 function App() {
+  // mengatur munculnya Header
+  const location = useLocation();
+  const hideHeaderPaths = ["/login", "/register", "/"]; // Path tanpa Header
+  const shouldShowHeader = !hideHeaderPaths.includes(location.pathname);
+
   // ambil isHydrated
   const { isHydrated } = useHydration();
 
@@ -19,18 +29,27 @@ function App() {
 
   return (
     <>
-      <Header />
+      {shouldShowHeader && <Header />}
       <Routes>
-        <Route path="/" Component={HomePage} />
-        {/* <Route path="/check" Component={CheckPage} /> */}
+        <Route path="/" Component={DashboardPage} />
+        <Route path="/register" Component={RegisterPage} />
+        <Route path="/home" Component={HomePage} />
         <Route path="/info" Component={InfoPage} />
         <Route path="/login" Component={LoginPage} />
-        <Route path="/register" Component={RegisterPage} />
+        <Route path="/admin" Component={NotFound} />
         <Route path="/admin">
           <Route path="edit/" Component={JamPage} />
+          <Route path="editTableInfo/" Component={EditTableInfo} />
           <Route path="810009/:jamId" Component={JamPage} />
         </Route>
+
+        {/* 
+        - Rute NotFound menangkap semua rute yang tidak terdaftar
+        - mencegah terjadi-nya penulisan secara langsung pada URL
+        */}
+        <Route path="*" Component={NotFound} />
       </Routes>
+
       <Toaster />
     </>
   );
