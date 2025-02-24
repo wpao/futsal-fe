@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
+import axiosInstance from "@/lib/axios";
 
 // const TableInfo = () => {
 export function TableInfo() {
@@ -10,9 +11,7 @@ export function TableInfo() {
   const fetchSchedules = async () => {
     const lapanganStorage = localStorage.getItem("lapangan-change");
     try {
-      const response = await axios.get(
-        `http://localhost:3000/info/${lapanganStorage}`,
-      );
+      const response = await axiosInstance.get(`/info/${lapanganStorage}`);
       setSchedules(response.data);
     } catch (error) {
       console.error("Error fetching schedules:", error);

@@ -6,7 +6,8 @@ import { useSelector } from "react-redux";
 // redux
 import { RootState } from "../store/store";
 import { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
+import axiosInstance from "@/lib/axios";
 
 // mendapatkan tahun bulan tanggal sekarang
 // mendapatkan jam sekarang
@@ -54,9 +55,9 @@ export const Jam = () => {
   const fetchC = async () => {
     setProductIsLoading(true);
     try {
-      const response = await axios.get(
+      const response = await axiosInstance.get(
         // `http://localhost:3000/bookings/filter?date=${dateSelector.tahunbulantanggal}`,
-        `http://localhost:3000/bookings/filter?date=${dateSelector.tahunbulantanggal}&idUser=${lapanganStorage}`,
+        `/bookings/filter?date=${dateSelector.tahunbulantanggal}&idUser=${lapanganStorage}`,
       );
       // const response = await axiosInstance.get(
       //   `/api/booking/all?date=${dateSelector.tahunbulantanggal}`,

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useDispatch } from "react-redux";
+import axiosInstance from "@/lib/axios";
 
 // Definisi tipe data user
 interface UserType {
@@ -28,9 +29,7 @@ const DashboardPage = () => {
   // Fungsi untuk mengambil data users
   const fetchUsers = async () => {
     try {
-      const response = await axios.get<UserType[]>(
-        `http://localhost:3000/users`,
-      );
+      const response = await axiosInstance.get<UserType[]>(`/users`);
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);

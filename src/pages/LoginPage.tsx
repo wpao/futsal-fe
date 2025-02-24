@@ -22,10 +22,11 @@ import {
 } from "@/components/ui/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+// import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { SignedInPage } from "@/components/guard/SignedInPage";
+import axiosInstance from "@/lib/axios";
 
 const loginFormSchema = z.object({
   username: z.string().min(3, "Username must be at least 3 characters").max(6),
@@ -67,7 +68,7 @@ const LoginPage = () => {
       // });
 
       // kirim data ke API Docker postgresql menggunakan axios
-      const userResponse = await axios.post("http://localhost:3000/login", {
+      const userResponse = await axiosInstance.post("/login", {
         username: values.username,
         password: values.password,
       });
@@ -85,6 +86,12 @@ const LoginPage = () => {
 
       // jika berhasil, maka tampilkan alert
       alert(`Login successful for ${values.username}`);
+
+      // jwt
+      // token di simpan di localStorage
+      if (userResponse.data.token) {
+        localStorage.setItem("token", userResponse.data.token); // Simpan token di localStorage
+      }
 
       // simpan user id ke local storage
       // ini di pakai untuk melihat user yang login

@@ -20,7 +20,8 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import { useDispatch } from "react-redux";
-import axios from "axios";
+// import axios from "axios";
+import axiosInstance from "@/lib/axios";
 
 // mendapatkan tahun bulan tanggal sekarang
 // mendapatkan jam sekarang
@@ -86,8 +87,8 @@ export const Jam = () => {
     const currentUser = localStorage.getItem("current-user");
     setProductIsLoading(true);
     try {
-      const response = await axios.get(
-        `http://localhost:3000/bookings/filter?date=${dateSelector.tahunbulantanggal}&idUser=${currentUser}`,
+      const response = await axiosInstance.get(
+        `/bookings/filter?date=${dateSelector.tahunbulantanggal}&idUser=${currentUser}`,
       );
       setTimes(response.data.data);
     } catch (error) {
@@ -173,11 +174,11 @@ export const Jam = () => {
     const user = localStorage.getItem("current-user");
 
     // datatkan user berdasarkan id
-    const userResponse = await axios.get(`http://localhost:3000/users/${user}`);
+    const userResponse = await axiosInstance.get(`/users/${user}`);
 
     // kirim data ke API Docker postgresql menggunakan axios
     try {
-      await axios.post(`http://localhost:3000/bookings`, {
+      await axiosInstance.post(`/bookings`, {
         idUser: userResponse.data.data.id,
         username: userResponse.data.data.username,
         price: 100000,
@@ -199,7 +200,7 @@ export const Jam = () => {
 
   const unBookingSubmit = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:3000/bookings/delete/${id}`);
+      await axiosInstance.delete(`/bookings/delete/${id}`);
 
       alert("unBooking berhasil");
       fetchC();

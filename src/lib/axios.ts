@@ -2,7 +2,8 @@ import axios from "axios";
 
 export const axiosInstance = axios.create({
   // baseURL: "http://localhost:2000",
-  baseURL: "https://futsal.authenticrinjani.com",
+  // baseURL: "https://futsal.authenticrinjani.com",
+  baseURL: "http://localhost:3000",
 });
 
 // Interceptor untuk menambahkan token JWT ke header
