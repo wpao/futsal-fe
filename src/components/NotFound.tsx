@@ -8,6 +8,8 @@ const NotFound = () => {
     // Hapus localStorage jika rute tidak ditemukan
     localStorage.removeItem("current-user");
     localStorage.removeItem("lapangan-change");
+    localStorage.removeItem("token");
+    // window.location.reload(); // Refresh untuk menghapus state
 
     // Redirect ke halaman utama atau login
     navigate("/");

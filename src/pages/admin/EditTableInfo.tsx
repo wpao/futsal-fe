@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import { AdminPage } from "@/components/guard/AdminPage";
+import axiosInstance from "@/lib/axios";
 
 const EditTableInfo = () => {
   // dapatkan id user
@@ -14,7 +15,7 @@ const EditTableInfo = () => {
 
   const fetchSchedules = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/info/${idUser}`);
+      const response = await axiosInstance.get(`/info/${idUser}`);
       setSchedules(response.data);
     } catch (error) {
       console.error("Error fetching schedules:", error);
@@ -29,7 +30,7 @@ const EditTableInfo = () => {
     // if (!content.trim()) return;
 
     try {
-      await axios.post("http://localhost:3000/info", {
+      await axiosInstance.post("/info", {
         content,
         idLapanganChange,
       });

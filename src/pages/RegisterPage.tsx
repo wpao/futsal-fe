@@ -19,8 +19,8 @@ import {
 } from "@/components/ui/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import { axiosInstance } from "@/lib/axios";
-import axios from "axios";
+// import axios from "axios";
+import axiosInstance from "@/lib/axios";
 
 const registerFormSchema = z
   .object({
@@ -64,7 +64,7 @@ const RegisterPage = () => {
   const handleRegister = async (values: RegisterValues) => {
     try {
       // post user ke docker postgresql
-      await axios.post("http://localhost:3000/users", {
+      await axiosInstance.post("/users", {
         username: values.username,
         wa: values.wa,
         namaLapangan: values.namaLapangan,

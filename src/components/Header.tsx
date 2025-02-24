@@ -18,6 +18,8 @@ export const Header = () => {
   const handleLogout = () => {
     // 1. remove local storage
     localStorage.removeItem("current-user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("lapangan-change");
 
     // 2. reset user slice
     dispatch({ type: "ADMIN_LOGOUT" });
@@ -62,14 +64,7 @@ export const Header = () => {
           <div className="cursor-pointer">Info</div>
         </Link>
         <Link to="/">
-          <div
-            className="cursor-pointer"
-            onClick={() => {
-              // hapus local storage
-              localStorage.removeItem("lapangan-change");
-              localStorage.removeItem("current-user");
-            }}
-          >
+          <div className="cursor-pointer" onClick={handleLogout}>
             Keluar
           </div>
         </Link>
