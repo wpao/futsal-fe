@@ -25,7 +25,7 @@ export function TableInfo() {
   return (
     <div className="p-4">
       <div>
-        <h2 className="mb-2 text-xl font-bold">Jadwal Tersimpan</h2>
+        <h2 className="mb-2 text-xl font-bold">TARIP SEWA LAPANGAN</h2>
         {schedules.map((schedule) => (
           <div key={schedule.id} className="mb-2 whitespace-pre-wrap p-2">
             {schedule.content}
