@@ -1,11 +1,3 @@
-## Task
-
-- ui for desktop
-- ui for tablet
-- make this project run with docker
-- consume API JWT
-- sesuaikan table user
-
 ## About
 
 - Aplikasi ini berfungsi untuk memberitahu orang apakah Jam pada Futsal tertentu telah terboking atau belum
@@ -43,14 +35,6 @@ pnpm dev
 ```
 
 Open your browser and navigate to `http://localhost:5173`.
-
-## API
-
-### Sumber API consume
-
-- https://futsal.authenticrinjani.com -> niagahoster
-- http://localhost:3000/users -> prisma docker postgresql
-- http://localhost:2000/users -> run fake API (json-server)
 
 ## Social Accounts
 
