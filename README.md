@@ -1,21 +1,3 @@
-## About
-
-- Aplikasi ini berfungsi untuk memberitahu orang apakah Jam pada Futsal tertentu telah terboking atau belum
-
-- Aplikasi ini membantu supaya orang tidak harus pergi ke tempat Futsal untuk menanyakan Jam kosong
-
-- Aplikasi ini untuk meminimalisir chat yang masuk ke Admin Futsal mengenai Jam kosong atau status Futsal (Open or Close)
-
-## extension
-
-use this extension for eazy to develop
-
-- Tailwind CSS IntelliSense
-- Codeium: AI Coding Autocomplete and Chat for Python, Javascript, Typescript, Java, Go,
-- Prettier - Code formatter
-- Material Icon Theme
-- Auto Rename Tag
-
 ## Project React-TS with ShadCN and TailwindCSS
 
 This is a React TypeScript project built with the following technologies:
@@ -28,18 +10,10 @@ This is a React TypeScript project built with the following technologies:
 
 ## run
 
-Start the development server:
+- berjalan pada localhost:5173
+- pastikan futsal-backend sudah berjalan
 
 ```bash
-pnpm dev
+pnpm install
+pnpm run dev
 ```
-
-Open your browser and navigate to `http://localhost:5173`.
-
-## Social Accounts
-
-Stay connected for updates and more projects:
-
-- **GitHub**: <a href="https://github.com/wpao" target="_blank">github.com/wpao</a>
-- **YouTube**: <a href="https://www.youtube.com/@codesal-54" target="_blank">youtube.com/@codesal-54</a>
-- **Instagram**: <a href="https://www.instagram.com/paozanwa22/" target="_blank">instagram.com/paozanwa22</a>
