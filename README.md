@@ -26,21 +26,20 @@ This is a React TypeScript project built with the following technologies:
 - [pnpm](https://pnpm.io) as the package manager.
 - [Redux](https://redux.js.org) for state management.
 
-#### run on Local
-- change branch mode/run-local
-```bash
-pnpm install
-pnpm run dev
-```
 #### run on Docker, windows, local
+
 info:
+
 - jalankan database dan backend dengan docker
 - change branch mode/run-docker-local
 - access on http://localhost:3001
+
 ```bash
 docker compose up --build -d
 ```
+
 #### run on Docker, Linux
+
 ```bash
 sudo docker compose up --build -d
 ```
