@@ -86,7 +86,8 @@ export const Jam = () => {
   // GET /bookings/filter?date=2025-02-19&idUser=1f746f94-0c8e-4360-8b1d-8d70ec62418f
   const fetchC = async () => {
     // dapatkan data current-user yang login dari localStorage
-    const currentUser = localStorage.getItem("current-user");
+    // const currentUser = localStorage.getItem("current-user");
+    const currentUser = "96378b1c-a3e1-4c77-843a-7e581d16a661";
     setProductIsLoading(true);
     try {
       const response = await axiosInstance.get(
@@ -149,7 +150,7 @@ export const Jam = () => {
   // =============
   const [formData, setFormData] = useState({
     name: "",
-    phone: "",
+    wa: "",
   });
 
   const handleInputChange = (e: any) => {
@@ -167,7 +168,7 @@ export const Jam = () => {
       const res = await axiosInstance.post("/midtrans/snap", {
         item_details: {
           name: formData.name,
-          phone: formData.phone,
+          wa: formData.wa,
           price: 50000,
           quantity: 1,
         },
@@ -188,9 +189,10 @@ export const Jam = () => {
           // kirim data ke API Docker postgresql menggunakan axios
           try {
             await axiosInstance.post(`/bookings`, {
-              name: formData.name,
+              idUser: "96378b1c-a3e1-4c77-843a-7e581d16a661",
+              username: formData.name,
               price: 50000,
-              phone: formData.phone,
+              wa: formData.wa,
               time: jamSelector.timeBooking,
               date: dateSelector.tahunbulantanggal,
               isBayar: true,
@@ -200,7 +202,7 @@ export const Jam = () => {
             alert("Booking berhasil");
 
             // refresh halaman dengan cara memanggil fungsi fetch
-            // fetchC();
+            fetchC();
           } catch (error) {
             console.log(error);
           }
@@ -299,14 +301,14 @@ export const Jam = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="mb-1 block">
-                      Nomor HP
+                    <label htmlFor="wa" className="mb-1 block">
+                      Nomor WA
                     </label>
                     <input
                       type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
+                      id="wa"
+                      name="wa"
+                      value={formData.wa}
                       onChange={handleInputChange}
                       className="w-full rounded border px-3 py-2"
                       placeholder="Masukkan nomor HP"
