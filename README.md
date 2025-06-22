@@ -37,9 +37,3 @@ info:
 ```bash
 docker compose up --build -d
 ```
-
-#### run on Docker, Linux
-
-```bash
-sudo docker compose up --build -d
-```

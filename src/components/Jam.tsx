@@ -1,5 +1,3 @@
-// import { axiosInstance } from "@/lib/axios";
-
 // redux
 import { useSelector } from "react-redux";
 
@@ -10,18 +8,22 @@ import { useEffect, useState } from "react";
 // alert dialog
 import {
   AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
+  // AlertDialogPortal,
+  // AlertDialogOverlay,
   AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogAction,
+  AlertDialogCancel,
 } from "@/components/ui/alert-dialog";
 
 import { useDispatch } from "react-redux";
 // import axios from "axios";
 import axiosInstance from "@/lib/axios";
+// import { SnapPaymentButton } from "./SnapPaymentButton";
 
 // mendapatkan tahun bulan tanggal sekarang
 // mendapatkan jam sekarang
@@ -144,36 +146,61 @@ export const Jam = () => {
     }
   };
 
-  // jika booking di tekan
-  // add data to http://localhost:3000/booking API Docker postgresql
-  const onBookingSubmit = async () => {
-    alert("Booking berhasil");
-    // // dapatkan data user yang login
-    // const user = localStorage.getItem("current-user");
+  // =============
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+  });
 
-    // // dapatkan user berdasarkan id
-    // const userResponse = await axiosInstance.get(`/users/${user}`);
+  const handleInputChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-    // // kirim data ke API Docker postgresql menggunakan axios
-    // try {
-    //   await axiosInstance.post(`/bookings`, {
-    //     idUser: userResponse.data.data.id,
-    //     username: userResponse.data.data.username,
-    //     price: 100000,
-    //     wa: userResponse.data.data.wa,
-    //     time: jamSelector.timeBooking,
-    //     date: dateSelector.tahunbulantanggal,
-    //     isBayar: true,
-    //   });
+  const handlePay = async () => {
+    console.log("Data yang disimpan:", formData);
+    // midtrans
+    try {
+      const res = await axiosInstance.post("/midtrans/snap", {
+        item_details: {
+          name: formData.name,
+          phone: formData.phone,
+          quantity: 1,
+        },
+        transaction_details: {
+          order_id: String(Date.now()), // order_id harus unik
+          gross_amount: 100000,
+        },
+      });
 
-    //   // info berhasil
-    //   alert("Booking berhasil");
+      const { token } = res.data;
+      console.log(token);
 
-    //   // refresh halaman dengan cara memanggil fungsi fetch
-    //   fetchC();
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      window.snap.pay(token, {
+        onSuccess: async (result: any) => {
+          console.log("✅ Pembayaran berhasil:", result);
+
+          alert("Pembayaran berhasil!");
+        },
+        onPending: (result: any) => {
+          console.log("Pending", result);
+          alert("Pembayaran tertunda!");
+        },
+        onError: (result: any) => {
+          console.error("Error", result);
+          alert("Terjadi kesalahan saat membayar.");
+        },
+        onClose: () => {
+          alert("Kamu menutup popup tanpa menyelesaikan pembayaran.");
+        },
+      });
+    } catch (error) {
+      console.error("Gagal membuat transaksi", error);
+      alert("Gagal membuat transaksi");
+    }
   };
 
   // ketika tanggal berubah
@@ -234,23 +261,60 @@ export const Jam = () => {
                 : {dateSelector.tahunbulantanggal}
               </AlertDialogTitle>
               <AlertDialogDescription>
-                Silahkan pilih jam yang akan di booking atau unBooking
+                {/* Form di dalam Description */}
+                <div className="mt-4 space-y-4">
+                  <div>
+                    <label htmlFor="name" className="mb-1 block">
+                      Nama Lengkap
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="w-full rounded border px-3 py-2"
+                      placeholder="Masukkan nama Anda"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="phone" className="mb-1 block">
+                      Nomor HP
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="w-full rounded border px-3 py-2"
+                      placeholder="Masukkan nomor HP"
+                    />
+                  </div>
+                </div>
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <div className="flex justify-around">
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-                <AlertDialogCancel
-                  // status terbooking atau belum || jam lebih kecil atau lebih besar
+                {/* <AlertDialogCancel
                   disabled={
                     buttonSelector.chack || buttonSelector.disableButton
                   }
                   onClick={onBookingSubmit}
                 >
-                  {/* disable ketika jam lebih kecil && sudah terbooking */}
                   Booking
-                </AlertDialogCancel>
+                </AlertDialogCancel> */}
+                <AlertDialogAction
+                  disabled={
+                    buttonSelector.chack || buttonSelector.disableButton
+                  }
+                  onClick={handlePay}
+                >
+                  Booking
+                </AlertDialogAction>
               </div>
             </AlertDialogFooter>
           </AlertDialogContent>
