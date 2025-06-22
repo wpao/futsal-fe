@@ -168,22 +168,42 @@ export const Jam = () => {
         item_details: {
           name: formData.name,
           phone: formData.phone,
+          price: 50000,
           quantity: 1,
         },
         transaction_details: {
           order_id: String(Date.now()), // order_id harus unik
-          gross_amount: 100000,
+          gross_amount: 50000,
         },
       });
 
       const { token } = res.data;
-      console.log(token);
+      // console.log(token);
 
       window.snap.pay(token, {
         onSuccess: async (result: any) => {
           console.log("✅ Pembayaran berhasil:", result);
-
           alert("Pembayaran berhasil!");
+
+          // kirim data ke API Docker postgresql menggunakan axios
+          try {
+            await axiosInstance.post(`/bookings`, {
+              name: formData.name,
+              price: 50000,
+              phone: formData.phone,
+              time: jamSelector.timeBooking,
+              date: dateSelector.tahunbulantanggal,
+              isBayar: true,
+            });
+
+            // info berhasil
+            alert("Booking berhasil");
+
+            // refresh halaman dengan cara memanggil fungsi fetch
+            // fetchC();
+          } catch (error) {
+            console.log(error);
+          }
         },
         onPending: (result: any) => {
           console.log("Pending", result);
