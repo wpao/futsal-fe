@@ -15,5 +15,6 @@ export const SignedInPage = (props: React.PropsWithChildren<{}>) => {
   // jika tidak ada id maka boleh access hamalan berikut:
   // children berisi halaman LoginPage.tsx
   // children berisi halaman HomePage.tsx
+  // return tampilan biasa
   return props.children;
 };

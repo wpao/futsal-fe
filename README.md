@@ -4,7 +4,7 @@
 
 - Aplikasi ini membantu supaya orang tidak harus pergi ke tempat Futsal untuk menanyakan Jam kosong
 
-- Aplikasi ini untuk meminimalisir chat yang masuk ke Admin Futsal mengenai Jam kosong atau status Futsal (Open or Close)
+- Aplikasi ini untuk meminimalisir chat yang masuk ke Admin Futsal mengenai Jam kosong atau status Futsal (terboking atau tidak)
 
 ## extension
 
@@ -26,20 +26,14 @@ This is a React TypeScript project built with the following technologies:
 - [pnpm](https://pnpm.io) as the package manager.
 - [Redux](https://redux.js.org) for state management.
 
-## run
+#### run on Docker, windows, local
 
-Start the development server:
+info:
+
+- jalankan database dan backend dengan docker
+- change branch mode/run-docker-local
+- access on http://localhost:3001
 
 ```bash
-pnpm dev
+docker compose up --build -d
 ```
-
-Open your browser and navigate to `http://localhost:5173`.
-
-## Social Accounts
-
-Stay connected for updates and more projects:
-
-- **GitHub**: <a href="https://github.com/wpao" target="_blank">github.com/wpao</a>
-- **YouTube**: <a href="https://www.youtube.com/@codesal-54" target="_blank">youtube.com/@codesal-54</a>
-- **Instagram**: <a href="https://www.instagram.com/paozanwa22/" target="_blank">instagram.com/paozanwa22</a>

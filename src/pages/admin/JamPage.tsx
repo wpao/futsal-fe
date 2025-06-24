@@ -1,3 +1,5 @@
+// ini adalah halaman sama seperti HomePage.tsx
+
 import { CalendarForm } from "@/components/CalendarForm";
 import { Jam } from "@/components/admin/Jam";
 import { AdminPage } from "@/components/guard/AdminPage";
