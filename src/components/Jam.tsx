@@ -87,7 +87,7 @@ export const Jam = () => {
   const fetchC = async () => {
     // dapatkan data current-user yang login dari localStorage
     // const currentUser = localStorage.getItem("current-user");
-    const currentUser = "96378b1c-a3e1-4c77-843a-7e581d16a661";
+    const currentUser = localStorage.getItem("lapangan-change");
     setProductIsLoading(true);
     try {
       const response = await axiosInstance.get(
@@ -186,10 +186,12 @@ export const Jam = () => {
           console.log("✅ Pembayaran berhasil:", result);
           alert("Pembayaran berhasil!");
 
+          const idAdmin = localStorage.getItem("lapangan-change");
+
           // kirim data ke API Docker postgresql menggunakan axios
           try {
             await axiosInstance.post(`/bookings`, {
-              idUser: "96378b1c-a3e1-4c77-843a-7e581d16a661",
+              idUser: idAdmin,
               username: formData.name,
               price: 50000,
               wa: formData.wa,

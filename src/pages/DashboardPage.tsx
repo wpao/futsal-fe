@@ -38,6 +38,7 @@ const DashboardPage = () => {
 
   // function untuk memasukkan idUser ke redux
   const functionLapangan = (idUser: any) => {
+    //
     dispatch({ type: "LAPANGAN_CHANGE", payload: { idUser } });
 
     // simpan data idUser ke localStorage

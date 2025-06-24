@@ -181,7 +181,7 @@ export const Jam = () => {
       await axiosInstance.post(`/bookings`, {
         idUser: userResponse.data.data.id,
         username: userResponse.data.data.username,
-        price: 100000,
+        price: 50000,
         wa: userResponse.data.data.wa,
         time: jamSelector.timeBooking,
         date: dateSelector.tahunbulantanggal,
