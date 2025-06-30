@@ -9,12 +9,9 @@ import { useEffect, useState } from "react";
 // alert dialog
 import {
   AlertDialog,
-  // AlertDialogPortal,
-  // AlertDialogOverlay,
   AlertDialogTrigger,
   AlertDialogContent,
   AlertDialogHeader,
-  // AlertDialogFooter,
   AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogAction,
@@ -104,22 +101,6 @@ export const Jam = () => {
   // redux menggunakan dispatch untuk mengubah state global
   const dispatch = useDispatch();
 
-  // mendapatkan jam dari tahun-bulan-tanggal yang di pilih
-  // const fetchC = async () => {
-  //   setProductIsLoading(true);
-  //   try {
-  //     const response = await axiosInstance.get(
-  //       `/api/booking/all?date=${dateSelector.tahunbulantanggal}`,
-  //     );
-  //     setTimes(response.data.data);
-  //   } catch (error) {
-  //     console.error("Error fetching products:", error);
-  //     return [];
-  //   } finally {
-  //     setProductIsLoading(false);
-  //   }
-  // };
-
   // fetch data from http://localhost:3000/booking API Docker postgresql
   // GET /bookings/filter?date=2025-02-19&idUser=1f746f94-0c8e-4360-8b1d-8d70ec62418f
   const fetchC = async () => {
@@ -184,86 +165,6 @@ export const Jam = () => {
       setJamSelesai(Number(jam) + 1);
     }
   };
-
-  // =============
-  // const [formData, setFormData] = useState({
-  //   name: "",
-  //   wa: "",
-  // });
-
-  // const handleInputChange = (e: any) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     [name]: value,
-  //   }));
-  // };
-
-  // const handlePay = async () => {
-  //   console.log("Data yang disimpan:", formData);
-  //   // midtrans
-  //   try {
-  //     const res = await axiosInstance.post("/midtrans/snap", {
-  //       item_details: {
-  //         name: formData.name,
-  //         wa: formData.wa,
-  //         price: 50000,
-  //         quantity: 1,
-  //       },
-  //       transaction_details: {
-  //         order_id: String(Date.now()), // order_id harus unik
-  //         gross_amount: 50000,
-  //       },
-  //     });
-
-  //     const { token } = res.data;
-  //     // console.log(token);
-
-  //     window.snap.pay(token, {
-  //       onSuccess: async (result: any) => {
-  //         console.log("✅ Pembayaran berhasil:", result);
-  //         alert("Pembayaran berhasil!");
-
-  //         const idAdmin = localStorage.getItem("lapangan-change");
-
-  //         // kirim data ke API Docker postgresql menggunakan axios
-  //         try {
-  //           await axiosInstance.post(`/bookings`, {
-  //             idUser: idAdmin,
-  //             username: formData.name,
-  //             price: 50000,
-  //             wa: formData.wa,
-  //             time: jamSelector.timeBooking,
-  //             date: dateSelector.tahunbulantanggal,
-  //             isBayar: true,
-  //           });
-
-  //           // info berhasil
-  //           alert("Booking berhasil");
-
-  //           // refresh halaman dengan cara memanggil fungsi fetch
-  //           fetchC();
-  //         } catch (error) {
-  //           console.log(error);
-  //         }
-  //       },
-  //       onPending: (result: any) => {
-  //         console.log("Pending", result);
-  //         alert("Pembayaran tertunda!");
-  //       },
-  //       onError: (result: any) => {
-  //         console.error("Error", result);
-  //         alert("Terjadi kesalahan saat membayar.");
-  //       },
-  //       onClose: () => {
-  //         alert("Kamu menutup popup tanpa menyelesaikan pembayaran.");
-  //       },
-  //     });
-  //   } catch (error) {
-  //     console.error("Gagal membuat transaksi", error);
-  //     alert("Gagal membuat transaksi");
-  //   }
-  // };
 
   // =====================================================
   const form = useForm({
@@ -431,6 +332,9 @@ export const Jam = () => {
                               {...field}
                             />
                           </FormControl>
+                          <FormDescription>
+                            nama 3 - 10 karakter
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -468,13 +372,6 @@ export const Jam = () => {
                       <AlertDialogCancel type="button">
                         Cancel
                       </AlertDialogCancel>
-                      {/* <AlertDialogCancel>
-                        <Button
-                          type="submit"
-                        >
-                          Login
-                        </Button>
-                      </AlertDialogCancel> */}
                       <AlertDialogAction asChild>
                         <Button
                           type="submit"
@@ -489,38 +386,6 @@ export const Jam = () => {
                     </div>
                   </form>
                 </Form>
-
-                {/* <div className="mt-4 space-y-4">
-                  <div>
-                    <label htmlFor="name" className="mb-1 block">
-                      Nama Lengkap
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="w-full rounded border px-3 py-2"
-                      placeholder="Masukkan nama Anda"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="wa" className="mb-1 block">
-                      Nomor WA
-                    </label>
-                    <input
-                      type="tel"
-                      id="wa"
-                      name="wa"
-                      value={formData.wa}
-                      onChange={handleInputChange}
-                      className="w-full rounded border px-3 py-2"
-                      placeholder="Masukkan nomor HP"
-                    />
-                  </div>
-                </div> */}
               </AlertDialogDescription>
             </AlertDialogHeader>
           </AlertDialogContent>
