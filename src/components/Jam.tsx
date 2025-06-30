@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 // redux
 import { useSelector } from "react-redux";
 
@@ -8,12 +9,9 @@ import { useEffect, useState } from "react";
 // alert dialog
 import {
   AlertDialog,
-  // AlertDialogPortal,
-  // AlertDialogOverlay,
   AlertDialogTrigger,
   AlertDialogContent,
   AlertDialogHeader,
-  AlertDialogFooter,
   AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogAction,
@@ -46,11 +44,48 @@ const {
 } = getCurrentDateTime();
 const tahunBulanTanggalNow = `${tahun}-${bulan}-${tanggal}`;
 
+//
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+
+//
+const indonesianPhoneNumber = z
+  .string()
+  .min(10, "Nomor WA harus minimal 10 digit")
+  .max(14, "Nomor WA maksimal 14 digit")
+  .regex(/^(\+62|62|0)[0-9]{9,12}$/, {
+    message:
+      "Format nomor tidak valid. Gunakan format 08..., +628..., atau 628...",
+  });
+
+// Definisikan schema validasi dengan Zod
+const formSchema = z.object({
+  name: z
+    .string()
+    .min(3, "Nama harus diisi")
+    .max(10, "Nama maksimal 10 karakter"),
+  wa: indonesianPhoneNumber,
+  // wa: z.string().min(10, "Nomor WA harus minimal 10 karakter"),
+});
+
 export const Jam = () => {
+  // open close popup/dialog booking
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   // redux
   const dateSelector = useSelector((state: RootState) => state.date);
   const jamSelector = useSelector((state: RootState) => state.jam);
-  const buttonSelector = useSelector((state: RootState) => state.check);
+  // const buttonSelector = useSelector((state: RootState) => state.check);
 
   // loading..
   const [productIsLoading, setProductIsLoading] = useState(false);
@@ -65,22 +100,6 @@ export const Jam = () => {
   // redux
   // redux menggunakan dispatch untuk mengubah state global
   const dispatch = useDispatch();
-
-  // mendapatkan jam dari tahun-bulan-tanggal yang di pilih
-  // const fetchC = async () => {
-  //   setProductIsLoading(true);
-  //   try {
-  //     const response = await axiosInstance.get(
-  //       `/api/booking/all?date=${dateSelector.tahunbulantanggal}`,
-  //     );
-  //     setTimes(response.data.data);
-  //   } catch (error) {
-  //     console.error("Error fetching products:", error);
-  //     return [];
-  //   } finally {
-  //     setProductIsLoading(false);
-  //   }
-  // };
 
   // fetch data from http://localhost:3000/booking API Docker postgresql
   // GET /bookings/filter?date=2025-02-19&idUser=1f746f94-0c8e-4360-8b1d-8d70ec62418f
@@ -147,28 +166,29 @@ export const Jam = () => {
     }
   };
 
-  // =============
-  const [formData, setFormData] = useState({
-    name: "",
-    wa: "",
+  // =====================================================
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      wa: "",
+    },
   });
 
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  type PayValues = {
+    name: string;
+    wa: string;
   };
 
-  const handlePay = async () => {
-    console.log("Data yang disimpan:", formData);
+  //
+  const onSubmit = async (values: PayValues) => {
+    // console.log("Data yang disimpan:", values);
     // midtrans
     try {
       const res = await axiosInstance.post("/midtrans/snap", {
         item_details: {
-          name: formData.name,
-          wa: formData.wa,
+          name: values.name,
+          wa: values.wa,
           price: 50000,
           quantity: 1,
         },
@@ -180,6 +200,10 @@ export const Jam = () => {
 
       const { token } = res.data;
       // console.log(token);
+      if (token) {
+        // Tutup dialog
+        setIsDialogOpen(false);
+      }
 
       window.snap.pay(token, {
         onSuccess: async (result: any) => {
@@ -192,9 +216,9 @@ export const Jam = () => {
           try {
             await axiosInstance.post(`/bookings`, {
               idUser: idAdmin,
-              username: formData.name,
+              username: values.name,
               price: 50000,
-              wa: formData.wa,
+              wa: values.wa,
               time: jamSelector.timeBooking,
               date: dateSelector.tahunbulantanggal,
               isBayar: true,
@@ -221,12 +245,16 @@ export const Jam = () => {
           alert("Kamu menutup popup tanpa menyelesaikan pembayaran.");
         },
       });
+
+      // reset form
+      form.reset();
     } catch (error) {
       console.error("Gagal membuat transaksi", error);
       alert("Gagal membuat transaksi");
     }
   };
 
+  //
   // ketika tanggal berubah
   useEffect(() => {
     fetchC();
@@ -238,7 +266,7 @@ export const Jam = () => {
   const kotakIds = Array.from({ length: 15 }, (_, i) => 8 + i);
 
   return (
-    <AlertDialog>
+    <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <h1 className="mb-2 mt-10">Jam</h1>
       {/* Loading.. */}
       {productIsLoading ? (
@@ -278,6 +306,7 @@ export const Jam = () => {
               </AlertDialogTrigger>
             );
           })}
+
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>
@@ -286,61 +315,79 @@ export const Jam = () => {
               </AlertDialogTitle>
               <AlertDialogDescription>
                 {/* Form di dalam Description */}
-                <div className="mt-4 space-y-4">
-                  <div>
-                    <label htmlFor="name" className="mb-1 block">
-                      Nama Lengkap
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="mt-4 space-y-4"
+                  >
+                    <FormField
+                      control={form.control}
                       name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="w-full rounded border px-3 py-2"
-                      placeholder="Masukkan nama Anda"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Nama Lengkap</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Masukkan nama Anda"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormDescription>
+                            nama 3 - 10 karakter
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
 
-                  <div>
-                    <label htmlFor="wa" className="mb-1 block">
-                      Nomor WA
-                    </label>
-                    <input
-                      type="tel"
-                      id="wa"
+                    <FormField
+                      control={form.control}
                       name="wa"
-                      value={formData.wa}
-                      onChange={handleInputChange}
-                      className="w-full rounded border px-3 py-2"
-                      placeholder="Masukkan nomor HP"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Nomor WA</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Masukkan nomor WA"
+                              {...field}
+                              onChange={(e) => {
+                                // Hanya mengizinkan input angka
+                                const value = e.target.value.replace(
+                                  /[^0-9+]/g,
+                                  "",
+                                );
+                                field.onChange(value);
+                              }}
+                            />
+                          </FormControl>
+                          <FormDescription>
+                            Gunakan format 08xx, +628xx, atau 628xx
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
-                </div>
+
+                    <div className="flex justify-around">
+                      <AlertDialogCancel type="button">
+                        Cancel
+                      </AlertDialogCancel>
+                      <AlertDialogAction asChild>
+                        <Button
+                          type="submit"
+                          disabled={
+                            !form.formState.isValid ||
+                            form.formState.isSubmitting
+                          }
+                        >
+                          booking
+                        </Button>
+                      </AlertDialogAction>
+                    </div>
+                  </form>
+                </Form>
               </AlertDialogDescription>
             </AlertDialogHeader>
-            <AlertDialogFooter>
-              <div className="flex justify-around">
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-
-                {/* <AlertDialogCancel
-                  disabled={
-                    buttonSelector.chack || buttonSelector.disableButton
-                  }
-                  onClick={onBookingSubmit}
-                >
-                  Booking
-                </AlertDialogCancel> */}
-                <AlertDialogAction
-                  disabled={
-                    buttonSelector.chack || buttonSelector.disableButton
-                  }
-                  onClick={handlePay}
-                >
-                  Booking
-                </AlertDialogAction>
-              </div>
-            </AlertDialogFooter>
           </AlertDialogContent>
         </div>
       )}
