@@ -59,54 +59,50 @@ const LoginPage = () => {
   const onSubmit = async (values: LoginValues) => {
     // console.log(values);
     try {
-      // jika username dan password benar, maka userResponse akan mengembalikan data.array yang berisi data
-      // const userResponse = await axios.get("http://localhost:2000/users", {
-      //   params: {
-      //     username: values.username,
-      //     password: values.password,
-      //   },
-      // });
-
       // kirim data ke API Docker postgresql menggunakan axios
-      const userResponse = await axiosInstance.post("/login", {
-        username: values.username,
-        password: values.password,
-      });
+      const userResponse = await axiosInstance
+        .post("/login", {
+          username: values.username,
+          password: values.password,
+        })
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          // console.log("ini Error Data:", err.response.data); // Muncul di Console Chrome
+          return err.response.data.message;
+        });
 
-      // melihat hasil respon
-      // console.log(userResponse.data.data); // {id: 'ec97ad5e-434f-493a-96ac-b44ed55e27c4', username: 'wpao', password: 'password', role: 'admin'}
+      //
+      // console.log(userResponse.message);
+      if (userResponse == "Invalid username or password") {
+        // alert(`ini dalam ${userResponse}`);
+        alert(userResponse);
+        return;
+      }
 
-      // // jika data.array kosong, itu berarti username atau password salah
-      // if (!userResponse.data.data.length) {
-      //   alert("Username or password is incorrect");
-
-      //   // menghentikan proses
-      //   return;
-      // }
-
-      // jika berhasil, maka tampilkan alert
-      alert(`Login successful for ${values.username}`);
+      alert(userResponse.message);
 
       // jwt
       // token di simpan di localStorage
-      if (userResponse.data.token) {
-        localStorage.setItem("token", userResponse.data.token); // Simpan token di localStorage
+      if (userResponse.token) {
+        localStorage.setItem("token", userResponse.token); // Simpan token di localStorage
       }
 
       // simpan user id ke local storage
       // ini di pakai untuk melihat user yang login
-      localStorage.setItem("current-user", userResponse.data.data.id);
+      localStorage.setItem("current-user", userResponse.data.id);
 
       // ini di gunakan untuk mendapatkan info lapangan
-      localStorage.setItem("lapangan-change", userResponse.data.data.id);
+      localStorage.setItem("lapangan-change", userResponse.data.id);
 
       // simpan data user ke redux
       dispatch({
         type: "ADMIN_LOGIN",
         payload: {
-          username: userResponse.data.data.username,
-          id: userResponse.data.data.id,
-          role: userResponse.data.data.role,
+          username: userResponse.data.username,
+          id: userResponse.data.id,
+          role: userResponse.data.role,
         },
       });
 
