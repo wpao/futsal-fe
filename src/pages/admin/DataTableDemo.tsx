@@ -34,7 +34,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+// import axios from "axios";
+import axiosInstance from "@/lib/axios";
+
+import { useEffect, useState } from "react";
+
 const data: Person[] = [
+  // {
+  //   idUser: "ffa51a03-5e69-4b78-9347-5ace789aeb2e",
+  //   username: "Admin",
+  //   price: 50000,
+  //   wa: "081987654322",
+  //   time: 21,
+  //   date: "2025-06-23",
+  //   isBayar: true,
+  // },
   {
     id: "m5gr84i9",
     amount: 316,
@@ -149,8 +163,16 @@ export const columns: ColumnDef<Person>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const handleDelete = () => {
+      const handleDelete = async () => {
         console.log("Deleting row with id:", row.original.id);
+        try {
+          await axiosInstance.delete(`/bookings/delete/${row.original.id}`);
+
+          alert("delete berhasil");
+          // fetchC();
+        } catch (error) {
+          console.log(error);
+        }
       };
 
       return (
@@ -203,6 +225,32 @@ export function DataTableDemo() {
       rowSelection,
     },
   });
+
+  //
+  type TypeTime = {
+    id: number;
+    username: string;
+    time: number;
+    price: number;
+  };
+
+  //
+  const [dataBookings, setDataBookings] = useState<TypeTime[]>([]);
+  console.log(dataBookings);
+  // dapatkan data bookings
+  const fetchC = async () => {
+    try {
+      const response = await axiosInstance.get(`/bookings`);
+      console.log(response.data);
+      setDataBookings(response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchC();
+  }, []);
 
   return (
     <div className="w-full">
