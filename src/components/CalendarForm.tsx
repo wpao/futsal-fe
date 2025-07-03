@@ -81,7 +81,7 @@ export function CalendarForm() {
           name="dob"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Tanggal Bookong</FormLabel>
+              <FormLabel>Tanggal Booking</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
