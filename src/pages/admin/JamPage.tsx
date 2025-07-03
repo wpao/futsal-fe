@@ -3,6 +3,7 @@
 import { CalendarForm } from "@/components/CalendarForm";
 import { Jam } from "@/components/admin/Jam";
 import { AdminPage } from "@/components/guard/AdminPage";
+import { DataTableDemo } from "./DataTableDemo";
 // import { useState } from "react";
 
 // redux
@@ -19,9 +20,14 @@ const JamPage = () => {
 
   return (
     <AdminPage>
-      <div className="mt-10 flex flex-col items-center justify-around">
-        <CalendarForm />
-        <Jam />
+      <div className="mt-10 flex flex-col items-center justify-around md:flex-row md:justify-evenly">
+        <div>
+          <CalendarForm />
+          <Jam />
+        </div>
+        <div className="mt-10">
+          <DataTableDemo />
+        </div>
       </div>
     </AdminPage>
   );
