@@ -78,7 +78,9 @@ const DashboardPage = () => {
 
   return (
     <div className="mt-8 flex w-full flex-col items-center justify-center text-center">
-      <div className="mb-10 text-lg font-semibold">Daftar Lapangan</div>
+      <div className="mb-10 bg-gradient-to-tr from-blue-500 to-teal-400 bg-clip-text text-3xl font-semibold text-transparent">
+        DAFTAR LAPANGAN
+      </div>
       <div className="grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
         {users.length > 0 ? (
           users.map((user, index) => (
@@ -93,7 +95,8 @@ const DashboardPage = () => {
                 <CardHeader>
                   <CardTitle>{user.namaLapangan}</CardTitle>
                   <CardDescription>
-                    Enter your email below to login to your account
+                    Jln Gajahmada no.5b Lorem ipsum, dolor sit amet consectetur
+                    adipisicing elit. Repellendus, nemo.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-col items-center justify-center space-y-4 p-6">

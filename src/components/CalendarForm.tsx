@@ -75,7 +75,9 @@ export function CalendarForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full max-w-60 space-y-8"
       >
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="mt-10">
+          Submit
+        </Button>
         <FormField
           control={form.control}
           name="dob"
