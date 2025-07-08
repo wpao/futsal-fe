@@ -16,7 +16,7 @@ const HomePage = () => {
     // halaman ini bisa di access oleh public
     // halaman ini tidak bisa di access oleh admin
     // <SignedInPage>
-    <div className="flex h-screen justify-center bg-gradient-to-b from-sky-50 via-violet-500 to-violet-800">
+    <div className="flex h-screen justify-center">
       <div className="mt-5">
         <CalendarForm />
         <Jam />
