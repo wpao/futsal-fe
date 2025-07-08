@@ -191,8 +191,8 @@ export const Jam = () => {
       // info berhasil
       alert("Booking berhasil");
 
-      // refresh halaman dengan cara memanggil fungsi fetch
-      fetchC();
+      fetchC(); // refresh halaman dengan cara memanggil fungsi fetch
+      window.location.reload(); // Refresh the page
     } catch (error) {
       console.log(error);
     }
@@ -203,7 +203,8 @@ export const Jam = () => {
       await axiosInstance.delete(`/bookings/delete/${id}`);
 
       alert("unBooking berhasil");
-      fetchC();
+      fetchC(); // refresh halaman dengan cara memanggil fungsi fetch
+      window.location.reload(); // Refresh the page
     } catch (error) {
       console.log(error);
     }

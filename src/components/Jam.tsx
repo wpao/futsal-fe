@@ -295,7 +295,7 @@ export const Jam = () => {
                   onClick={() => popupFunction(kotakId, data?.id ?? 0)}
                   className={`flex h-10 w-10 items-center justify-center border ${
                     isDisabled
-                      ? "cursor-not-allowed border-gray-300 bg-gray-200"
+                      ? "cursor-not-allowed border-gray-900 bg-gray-500"
                       : (data?.price ?? 0) > 0
                         ? "cursor-pointer border-red-500 bg-red-100"
                         : "cursor-pointer border-gray-300"

@@ -37,8 +37,8 @@ export const Header = () => {
 
   if (admin) {
     return (
-      <header className="flex justify-center p-4">
-        <div className="flex w-full max-w-md items-center justify-center gap-14">
+      <header className="flex justify-center bg-sky-50 p-4">
+        <div className="flex w-full max-w-md items-center justify-center gap-14 rounded-xl border-2 border-purple-200 p-5">
           <Link to="/admin/edit">
             <div className="cursor-pointer">Home</div>
           </Link>
@@ -56,7 +56,7 @@ export const Header = () => {
   }
   return (
     <header className="flex justify-center p-4">
-      <div className="flex w-full max-w-md justify-around">
+      <div className="flex w-full max-w-md items-center justify-center gap-14 rounded-xl border-2 border-purple-200 p-5">
         <Link to="/home">
           <div className="cursor-pointer">Home</div>
         </Link>

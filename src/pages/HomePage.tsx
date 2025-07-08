@@ -16,9 +16,11 @@ const HomePage = () => {
     // halaman ini bisa di access oleh public
     // halaman ini tidak bisa di access oleh admin
     // <SignedInPage>
-    <div className="mt-10 flex flex-col items-center justify-around">
-      <CalendarForm />
-      <Jam />
+    <div className="flex h-screen justify-center">
+      <div className="mt-5">
+        <CalendarForm />
+        <Jam />
+      </div>
     </div>
     // {/* </SignedInPage> */}
   );
