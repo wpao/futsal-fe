@@ -16,7 +16,7 @@ const HomePage = () => {
     // halaman ini bisa di access oleh public
     // halaman ini tidak bisa di access oleh admin
     // <SignedInPage>
-    <div className="mt-10 flex flex-col items-center justify-around bg-[url(/img/the-pattern-agency-c5uDmn9uQzo-unsplash.jpg)]">
+    <div className="mt-10 flex h-screen flex-col items-center justify-around bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
       <CalendarForm />
       <Jam />
     </div>

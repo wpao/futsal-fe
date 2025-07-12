@@ -1,14 +1,16 @@
 // ini adalah halaman sama seperti HomePage.tsx
 
-import { CalendarForm } from "@/components/CalendarForm";
-import { Jam } from "@/components/admin/Jam";
+// import { CalendarForm } from "@/components/CalendarForm";
+// import { Jam } from "@/components/admin/Jam";
 import { AdminPage } from "@/components/guard/AdminPage";
-import { DataTableDemo } from "./DataTableDemo";
+import Page from "./page";
+// import { DataTableDemo } from "./DataTableDemo";
 // import { useState } from "react";
 
 // redux
 // import { useDispatch } from "react-redux";
 
+// ini adalah halaman homePage untuk admin
 const JamPage = () => {
   // const dispatch = useDispatch();
 
@@ -20,7 +22,7 @@ const JamPage = () => {
 
   return (
     <AdminPage>
-      <div className="mt-10 flex flex-col items-center justify-around md:flex-row md:justify-evenly">
+      {/* <div className="mt-10 flex flex-col items-center justify-around md:flex-row md:justify-evenly">
         <div>
           <CalendarForm />
           <Jam />
@@ -28,6 +30,9 @@ const JamPage = () => {
         <div className="mt-10">
           <DataTableDemo />
         </div>
+      </div> */}
+      <div className="sm:ml-0 md:ml-52">
+        <Page />
       </div>
     </AdminPage>
   );

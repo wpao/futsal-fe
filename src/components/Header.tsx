@@ -35,40 +35,41 @@ export const Header = () => {
   // jika current-user ada maka gunakan header admin
   const admin = localStorage.getItem("current-user");
 
-  if (admin) {
+  if (!admin) {
+    // return (
+    //   <header className="flex justify-center p-4">
+    //     <div className="flex w-full max-w-md items-center justify-center gap-14">
+    //       <Link to="/admin/edit">
+    //         <div className="cursor-pointer">Home</div>
+    //       </Link>
+
+    //       <Link to="/admin/editTableInfo">
+    //         <div className="cursor-pointer">Info</div>
+    //       </Link>
+
+    //       <div className="cursor-pointer" onClick={handleLogout}>
+    //         Log Out
+    //       </div>
+    //     </div>
+    //   </header>
+    // );
+    // }
     return (
       <header className="flex justify-center p-4">
-        <div className="flex w-full max-w-md items-center justify-center gap-14">
-          <Link to="/admin/edit">
+        <div className="flex w-full max-w-md justify-around">
+          <Link to="/home">
             <div className="cursor-pointer">Home</div>
           </Link>
-
-          <Link to="/admin/editTableInfo">
+          <Link to="/info">
             <div className="cursor-pointer">Info</div>
           </Link>
-
-          <div className="cursor-pointer" onClick={handleLogout}>
-            Log Out
-          </div>
+          <Link to="/">
+            <div className="cursor-pointer" onClick={handleLogout}>
+              Keluar
+            </div>
+          </Link>
         </div>
       </header>
     );
   }
-  return (
-    <header className="flex justify-center p-4">
-      <div className="flex w-full max-w-md justify-around">
-        <Link to="/home">
-          <div className="cursor-pointer">Home</div>
-        </Link>
-        <Link to="/info">
-          <div className="cursor-pointer">Info</div>
-        </Link>
-        <Link to="/">
-          <div className="cursor-pointer" onClick={handleLogout}>
-            Keluar
-          </div>
-        </Link>
-      </div>
-    </header>
-  );
 };
