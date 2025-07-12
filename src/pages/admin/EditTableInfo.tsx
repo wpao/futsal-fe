@@ -47,34 +47,39 @@ const EditTableInfo = () => {
 
   return (
     <AdminPage>
-      <div className="p-4">
-        <form onSubmit={handleSubmit} className="mb-4">
-          <textarea
-            name="content"
-            className="w-full rounded border p-2"
-            rows={6}
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="Masukkan jadwal..."
-          ></textarea>
-          <button
-            type="submit"
-            className="mt-2 rounded bg-blue-500 px-4 py-2 text-white"
+      <div className="h-screen bg-[url(/img/fachry-zella-devandra-3sV_HuCgy70-unsplash.jpg)] bg-cover p-4 text-white">
+        <div className="flex w-full flex-col items-center justify-evenly">
+          <form
+            onSubmit={handleSubmit}
+            className="mb-4 flex w-1/2 flex-col items-center justify-center"
           >
-            Simpan
-          </button>
-        </form>
-
-        <div>
-          <h2 className="mb-2 text-xl font-bold">Jadwal Tersimpan</h2>
-          {schedules.map((schedule) => (
-            <div
-              key={schedule.id}
-              className="mb-2 whitespace-pre-wrap border p-2"
+            <textarea
+              name="content"
+              className="w-full rounded-xl border bg-purple-200 p-2 text-black"
+              rows={6}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="Masukkan jadwal..."
+            ></textarea>
+            <button
+              type="submit"
+              className="mt-2 rounded-full bg-purple-600 px-4 py-2 text-white"
             >
-              {schedule.content}
-            </div>
-          ))}
+              Simpan
+            </button>
+          </form>
+
+          <div>
+            <h2 className="mb-2 text-xl font-bold">Jadwal Tersimpan</h2>
+            {schedules.map((schedule) => (
+              <div
+                key={schedule.id}
+                className="mb-2 whitespace-pre-wrap border p-2"
+              >
+                {schedule.content}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </AdminPage>

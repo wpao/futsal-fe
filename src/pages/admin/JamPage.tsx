@@ -23,6 +23,9 @@ const JamPage = () => {
   return (
     <AdminPage>
       {/* <div className="mt-10 flex flex-col items-center justify-around md:flex-row md:justify-evenly">
+
+      <div className="flex h-screen flex-col justify-around bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% bg-cover md:flex-row md:justify-evenly">
+
         <div>
           <CalendarForm />
           <Jam />
