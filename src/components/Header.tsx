@@ -35,25 +35,26 @@ export const Header = () => {
   // jika current-user ada maka gunakan header admin
   const admin = localStorage.getItem("current-user");
 
-  if (admin) {
-    return (
-      <header className="flex justify-center bg-sky-50 p-4">
-        <div className="flex w-full max-w-md items-center justify-center gap-14 rounded-xl border-2 border-purple-200 p-5">
-          <Link to="/admin/edit">
-            <div className="cursor-pointer">Home</div>
-          </Link>
+  if (!admin) {
+    // return (
+    //   <header className="flex justify-center p-4">
+    //     <div className="flex w-full max-w-md items-center justify-center gap-14">
+    //       <Link to="/admin/edit">
+    //         <div className="cursor-pointer">Home</div>
+    //       </Link>
 
-          <Link to="/admin/editTableInfo">
-            <div className="cursor-pointer">Info</div>
-          </Link>
+    //       <Link to="/admin/editTableInfo">
+    //         <div className="cursor-pointer">Info</div>
+    //       </Link>
 
-          <div className="cursor-pointer" onClick={handleLogout}>
-            Log Out
-          </div>
-        </div>
-      </header>
-    );
-  }
+    //       <div className="cursor-pointer" onClick={handleLogout}>
+    //         Log Out
+    //       </div>
+    //     </div>
+    //   </header>
+    // );
+    // }
+  
   return (
     <header className="flex justify-center p-4">
       <div className="flex w-full max-w-md items-center justify-center gap-14 rounded-xl border-2 border-purple-200 p-5">
@@ -70,5 +71,5 @@ export const Header = () => {
         </Link>
       </div>
     </header>
-  );
+  );}
 };
