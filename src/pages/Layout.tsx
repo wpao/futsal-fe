@@ -1,17 +1,17 @@
 import {
-  SidebarProvider,
+  // SidebarProvider,
   SidebarInset,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/AppSidebar";
+// import { AppSidebar } from "@/components/AppSidebar";
 import { DataTableDemo } from "./admin/DataTableDemo";
 import { Jam } from "@/components/admin/Jam";
 import { CalendarForm } from "@/components/CalendarForm";
 
 export default function Layout() {
   return (
-    <SidebarProvider>
-      <AppSidebar />
+    <>
+      {/* <AppSidebar /> */}
       <main>
         <SidebarTrigger />
         {/* {children} */}
@@ -34,6 +34,6 @@ export default function Layout() {
           </div>
         </div>
       </SidebarInset>
-    </SidebarProvider>
+    </>
   );
 }

@@ -9,14 +9,23 @@ import { Provider } from "react-redux";
 import { legacy_createStore } from "redux";
 import { reducers } from "./store/store.ts";
 
+//
+import {
+  SidebarProvider,
+  // SidebarInset,
+  // SidebarTrigger,
+} from "@/components/ui/sidebar";
+
 const globalStore = legacy_createStore(reducers);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={globalStore}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <SidebarProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </SidebarProvider>
     </Provider>
   </StrictMode>,
 );

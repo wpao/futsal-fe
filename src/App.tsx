@@ -2,7 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import { Toaster } from "@/components/ui/toaster";
 import InfoPage from "./pages/InfoPage";
-import { Header } from "./components/Header";
+// import { Header } from "./components/Header";
+import { AppSidebar } from "./components/AppSidebar";
 import JamPage from "./pages/admin/JamPage";
 import LoginPage from "./pages/LoginPage";
 import Layout from "./pages/Layout";
@@ -30,7 +31,8 @@ function App() {
 
   return (
     <>
-      {shouldShowHeader && <Header />}
+      {/* {shouldShowHeader && <Header />} */}
+      {shouldShowHeader && <AppSidebar />}
       <Routes>
         <Route path="/" Component={DashboardPage} />
         <Route path="/layout" Component={Layout} />

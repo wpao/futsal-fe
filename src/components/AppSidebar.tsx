@@ -32,17 +32,17 @@ import { Link } from "react-router-dom";
 const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/layout",
     icon: Home,
   },
   {
     title: "Info",
-    url: "#",
+    url: "/info",
     icon: Inbox,
   },
   {
     title: "Calendar",
-    url: "#",
+    url: "/layout",
     icon: Calendar,
   },
   // {
