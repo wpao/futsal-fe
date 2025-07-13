@@ -7,8 +7,31 @@ import {
 import { DataTableDemo } from "./admin/DataTableDemo";
 import { Jam } from "@/components/admin/Jam";
 import { CalendarForm } from "@/components/CalendarForm";
+import CetakLaporan from "@/components/CetakLaporan";
 
 export default function Layout() {
+  //
+  const dataLaporan = {
+    judul: "Laporan Penjualan Bulanan",
+    kolom: ["No", "Bulan", "Total Penjualan", "Profit"],
+    data: [
+      {
+        No: 1,
+        Bulan: "Januari",
+        "Total Penjualan": "Rp 10.000.000",
+        Profit: "Rp 2.000.000",
+      },
+      {
+        No: 2,
+        Bulan: "Februari",
+        "Total Penjualan": "Rp 12.000.000",
+        Profit: "Rp 2.500.000",
+      },
+      // Data lainnya...
+    ],
+    footer: "Laporan dibuat pada: " + new Date().toLocaleDateString(),
+  };
+
   return (
     <>
       {/* <AppSidebar /> */}
@@ -29,6 +52,10 @@ export default function Layout() {
                 </div>
               </div>
               {/* <DataTable data={data} /> */}
+              <CetakLaporan
+                data={dataLaporan}
+                onCetak={() => console.log("Mencetak laporan...")}
+              />
               <DataTableDemo />
             </div>
           </div>
