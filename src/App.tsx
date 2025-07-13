@@ -5,6 +5,7 @@ import InfoPage from "./pages/InfoPage";
 import { Header } from "./components/Header";
 import JamPage from "./pages/admin/JamPage";
 import LoginPage from "./pages/LoginPage";
+import Layout from "./pages/Layout";
 import RegisterPage from "./pages/RegisterPage";
 import { useHydration } from "./hooks/useHydration";
 import DashboardPage from "./pages/DashboardPage";
@@ -32,6 +33,7 @@ function App() {
       {shouldShowHeader && <Header />}
       <Routes>
         <Route path="/" Component={DashboardPage} />
+        <Route path="/layout" Component={Layout} />
         <Route path="/register" Component={RegisterPage} />
         <Route path="/home" Component={HomePage} />
         <Route path="/info" Component={InfoPage} />

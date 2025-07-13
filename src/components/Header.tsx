@@ -54,21 +54,21 @@ export const Header = () => {
       </header>
     );
   }
-  return (
-    <header className="flex justify-center p-4">
-      <div className="flex w-full max-w-md items-center justify-center gap-14 rounded-xl border-2 border-purple-200 p-5">
-        <Link to="/home">
-          <div className="cursor-pointer">Home</div>
-        </Link>
-        <Link to="/info">
-          <div className="cursor-pointer">Info</div>
-        </Link>
-        <Link to="/">
-          <div className="cursor-pointer" onClick={handleLogout}>
-            Keluar
-          </div>
-        </Link>
-      </div>
-    </header>
-  );
+  // return (
+  //   <header className="flex justify-center p-4">
+  //     <div className="flex w-full max-w-md items-center justify-center gap-14 rounded-xl border-2 border-purple-200 p-5">
+  //       <Link to="/home">
+  //         <div className="cursor-pointer">Home</div>
+  //       </Link>
+  //       <Link to="/info">
+  //         <div className="cursor-pointer">Info</div>
+  //       </Link>
+  //       <Link to="/">
+  //         <div className="cursor-pointer" onClick={handleLogout}>
+  //           Keluar
+  //         </div>
+  //       </Link>
+  //     </div>
+  //   </header>
+  // );
 };
