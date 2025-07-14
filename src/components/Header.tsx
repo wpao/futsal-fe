@@ -3,6 +3,14 @@
 // import { IoCart, IoHeart } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
+// //
+// import {
+//   SidebarProvider,
+//   // SidebarInset,
+//   // SidebarTrigger,
+// } from "@/components/ui/sidebar";
+// import { AppSidebar } from "@/components/AppSidebar";
+
 // redux
 // import { RootState } from "../store/store";
 import { useDispatch } from "react-redux";
@@ -33,42 +41,45 @@ export const Header = () => {
 
   // jika user login maka akan terbuat current-user
   // jika current-user ada maka gunakan header admin
-  const admin = localStorage.getItem("current-user");
+  // const admin = localStorage.getItem("current-user");
 
-  if (admin) {
-    return (
-      <header className="flex justify-center bg-sky-50 p-4">
-        <div className="flex w-full max-w-md items-center justify-center gap-14 rounded-xl border-2 border-purple-200 p-5">
-          <Link to="/admin/edit">
-            <div className="cursor-pointer">Home</div>
-          </Link>
+  // if (admin) {
+  //   return (
+  //     <SidebarProvider>
+  //       <AppSidebar />
+  //     </SidebarProvider>
+  //     // <header className="flex justify-center bg-sky-50 p-4">
+  //     //   <div className="flex w-full max-w-md items-center justify-center gap-14 rounded-xl border-2 border-purple-200 p-5">
+  //     //     <Link to="/admin/edit">
+  //     //       <div className="cursor-pointer">Home</div>
+  //     //     </Link>
 
-          <Link to="/admin/editTableInfo">
-            <div className="cursor-pointer">Info</div>
-          </Link>
+  //     //     <Link to="/admin/editTableInfo">
+  //     //       <div className="cursor-pointer">Info</div>
+  //     //     </Link>
 
+  //     //     <div className="cursor-pointer" onClick={handleLogout}>
+  //     //       Log Out
+  //     //     </div>
+  //     //   </div>
+  //     // </header>
+  //   );
+  // }
+  return (
+    <header className="mt-10 flex justify-center">
+      <div className="flex w-full max-w-md items-center justify-center gap-14 rounded-xl border-2 border-purple-200 p-5">
+        <Link to="/home">
+          <div className="cursor-pointer">Home</div>
+        </Link>
+        <Link to="/info">
+          <div className="cursor-pointer">Info</div>
+        </Link>
+        <Link to="/">
           <div className="cursor-pointer" onClick={handleLogout}>
-            Log Out
+            Keluar
           </div>
-        </div>
-      </header>
-    );
-  }
-  // return (
-  //   <header className="flex justify-center p-4">
-  //     <div className="flex w-full max-w-md items-center justify-center gap-14 rounded-xl border-2 border-purple-200 p-5">
-  //       <Link to="/home">
-  //         <div className="cursor-pointer">Home</div>
-  //       </Link>
-  //       <Link to="/info">
-  //         <div className="cursor-pointer">Info</div>
-  //       </Link>
-  //       <Link to="/">
-  //         <div className="cursor-pointer" onClick={handleLogout}>
-  //           Keluar
-  //         </div>
-  //       </Link>
-  //     </div>
-  //   </header>
-  // );
+        </Link>
+      </div>
+    </header>
+  );
 };
