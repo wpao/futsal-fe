@@ -12,7 +12,7 @@ import CetakLaporan from "@/components/CetakLaporan";
 export default function Layout() {
   //
   const dataLaporan = {
-    judul: "Laporan Penjualan Bulanan",
+    judul: "Laporan Sewa Bulanan",
     kolom: ["No", "Bulan", "Total Penjualan", "Profit"],
     data: [
       {
@@ -24,6 +24,12 @@ export default function Layout() {
       {
         No: 2,
         Bulan: "Februari",
+        "Total Penjualan": "Rp 12.000.000",
+        Profit: "Rp 2.500.000",
+      },
+      {
+        No: 3,
+        Bulan: "Maret",
         "Total Penjualan": "Rp 12.000.000",
         Profit: "Rp 2.500.000",
       },

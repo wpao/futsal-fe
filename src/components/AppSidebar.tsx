@@ -26,7 +26,10 @@ import {
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 // import { NavUser } from "./NavUser";
+//
+import CetakLaporan from "@/components/CetakLaporan";
 
 // Menu items.
 const items = [
@@ -40,11 +43,11 @@ const items = [
     url: "/info",
     icon: Inbox,
   },
-  {
-    title: "Calendar",
-    url: "/layout",
-    icon: Calendar,
-  },
+  // {
+  //   title: "Calendar",
+  //   url: "/layout",
+  //   icon: Calendar,
+  // },
   // {
   //   title: "Search",
   //   url: "#",
@@ -55,6 +58,26 @@ const items = [
   //   url: "#",
   //   icon: Settings,
   // },
+  {
+    title: "Lapangan",
+    url: "/lapangan",
+    icon: Calendar,
+  },
+  {
+    title: "Pelanggan",
+    url: "/pelanggan",
+    icon: Calendar,
+  },
+  {
+    title: "Booking",
+    url: "/booking",
+    icon: Calendar,
+  },
+  {
+    title: "Skejule",
+    url: "/skejule",
+    icon: Calendar,
+  },
 ];
 
 // const data = {
@@ -82,6 +105,29 @@ export function AppSidebar() {
 
     // 2. reset user slice
     dispatch({ type: "ADMIN_LOGOUT" });
+  };
+
+  //
+  //
+  const dataLaporan = {
+    judul: "Laporan Penjualan Bulanan",
+    kolom: ["No", "Bulan", "Total Penjualan", "Profit"],
+    data: [
+      {
+        No: 1,
+        Bulan: "Januari",
+        "Total Penjualan": "Rp 10.000.000",
+        Profit: "Rp 2.000.000",
+      },
+      {
+        No: 2,
+        Bulan: "Februari",
+        "Total Penjualan": "Rp 12.000.000",
+        Profit: "Rp 2.500.000",
+      },
+      // Data lainnya...
+    ],
+    footer: "Laporan dibuat pada: " + new Date().toLocaleDateString(),
   };
 
   return (
@@ -126,16 +172,23 @@ export function AppSidebar() {
                   <span>Billing</span>
                 </DropdownMenuItem> */}
                 <DropdownMenuItem>
+                  <CetakLaporan
+                    className="w-full p-1"
+                    data={dataLaporan}
+                    onCetak={() => console.log("Mencetak laporan...")}
+                  />
+                </DropdownMenuItem>
+                <DropdownMenuItem>
                   {/* <span className="w-full cursor-pointer text-right">
                     Sign out
                   </span> */}
                   <Link to="/">
-                    <div
-                      className="w-full cursor-pointer border-2 pr-2 text-right"
+                    <Button
+                      className="w-32 cursor-pointer rounded-lg border-2 p-1"
                       onClick={handleLogout}
                     >
                       Keluar
-                    </div>
+                    </Button>
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>

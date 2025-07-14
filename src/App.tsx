@@ -14,6 +14,10 @@ import EditTableInfo from "./pages/admin/EditTableInfo";
 // import { EditTableInfo } from "./pages/admin/EditTableInfo";
 import { useLocation } from "react-router-dom";
 import NotFound from "./components/NotFound";
+import { Lapangan } from "./components/Lapangan";
+import { Pelanggan } from "./components/Pelanggan";
+import { Booking } from "./components/Booking";
+import { Skejule } from "./components/Skejule";
 
 function App() {
   // mengatur munculnya Header
@@ -36,6 +40,10 @@ function App() {
       <Routes>
         <Route path="/" Component={DashboardPage} />
         <Route path="/layout" Component={Layout} />
+        <Route path="/Lapangan" Component={Lapangan} />
+        <Route path="/Pelanggan" Component={Pelanggan} />
+        <Route path="/Booking" Component={Booking} />
+        <Route path="/Skejule" Component={Skejule} />
         <Route path="/register" Component={RegisterPage} />
         <Route path="/home" Component={HomePage} />
         <Route path="/info" Component={InfoPage} />
