@@ -243,7 +243,7 @@ export function DataTableDemo() {
   }
 
   return (
-    <div className="w-full">
+    <div className="mr-5 w-full">
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter names..."

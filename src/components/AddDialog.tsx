@@ -66,9 +66,7 @@ export const AddDialog = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="ml-2">
-          Tambah Lapangan
-        </Button>
+        <Button variant="outline">Tambah Lapangan</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

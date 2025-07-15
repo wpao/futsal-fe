@@ -90,7 +90,7 @@ const EditTableInfo = () => {
       </div> */}
 
       {/* ==== */}
-      <div className="w-full">
+      <div className="-ml-10 w-full">
         <ResizablePanelGroup
           direction="horizontal"
           // className="rounded-lg border md:min-w-[450px]"

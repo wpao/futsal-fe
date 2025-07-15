@@ -39,7 +39,7 @@ const JamPage = () => {
           <DataTableDemo />
         </div>
       </div> */}
-      <div className="w-full">
+      <div className="-ml-10 w-full bg-purple-100">
         <ResizablePanelGroup
           direction="vertical"
           // className="rounded-lg border md:min-w-[450px]"
@@ -49,7 +49,7 @@ const JamPage = () => {
               direction={isMobile ? "vertical" : "horizontal"}
             >
               <ResizablePanel defaultSize={200}>
-                <div className="flex h-full items-center justify-center p-6">
+                <div className="flex h-full items-center justify-center">
                   <span className="font-semibold">
                     <CalendarForm />
                   </span>
