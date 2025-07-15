@@ -16,16 +16,17 @@ import { useLocation, Outlet } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import { Lapangan } from "./components/Lapangan";
 import { Pelanggan } from "./components/Pelanggan";
-import { Booking } from "./components/Booking";
+// import { Booking } from "./components/Booking";
 import { Skejule } from "./components/Skejule";
 
 //
 import {
   SidebarProvider,
   // SidebarInset,
-  // SidebarTrigger,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
+import { DataTableDemo } from "./pages/admin/DataTableDemo";
 
 function App() {
   // mengatur munculnya Header
@@ -59,6 +60,7 @@ function App() {
   const AdminLayout = () => {
     return (
       <SidebarProvider>
+        <SidebarTrigger />
         {shouldShowHeader && <AppSidebar />}
         <Outlet />
       </SidebarProvider>
@@ -86,10 +88,6 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/layout" element={<Layout />} />
-          <Route path="/Lapangan" element={<Lapangan />} />
-          <Route path="/Pelanggan" Component={Pelanggan} />
-          <Route path="/Booking" Component={Booking} />
-          <Route path="/Skejule" Component={Skejule} />
           <Route path="/register" Component={RegisterPage} />
           <Route path="/home" Component={HomePage} />
           <Route path="/info" Component={InfoPage} />
@@ -102,6 +100,10 @@ function App() {
           <Route path="edit/" Component={JamPage} />
           <Route path="editTableInfo/" Component={EditTableInfo} />
           <Route path="810009/:jamId" Component={JamPage} />
+          <Route path="lapangan" element={<Lapangan />} />
+          <Route path="pelanggan" Component={Pelanggan} />
+          <Route path="booking" Component={DataTableDemo} />
+          <Route path="skejule" Component={Skejule} />
         </Route>
 
         {/* <Route path="/admin">

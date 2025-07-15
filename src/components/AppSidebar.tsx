@@ -2,7 +2,7 @@ import {
   Calendar,
   ChevronUp,
   Home,
-  Inbox,
+  // Inbox,
   // Search,
   // Settings,
   User2,
@@ -35,14 +35,14 @@ import CetakLaporan from "@/components/CetakLaporan";
 const items = [
   {
     title: "Home",
-    url: "/layout",
+    url: "/admin/edit",
     icon: Home,
   },
-  {
-    title: "Info",
-    url: "/info",
-    icon: Inbox,
-  },
+  // {
+  //   title: "Info",
+  //   url: "/admin/editTableInfo",
+  //   icon: Inbox,
+  // },
   // {
   //   title: "Calendar",
   //   url: "/layout",
@@ -60,22 +60,22 @@ const items = [
   // },
   {
     title: "Lapangan",
-    url: "/lapangan",
+    url: "/admin/lapangan",
     icon: Calendar,
   },
   {
     title: "Pelanggan",
-    url: "/pelanggan",
+    url: "/admin/booking",
     icon: Calendar,
   },
   {
     title: "Booking",
-    url: "/booking",
+    url: "/admin/booking",
     icon: Calendar,
   },
   {
     title: "Skejule",
-    url: "/skejule",
+    url: "/admin/editTableInfo",
     icon: Calendar,
   },
 ];
@@ -131,74 +131,76 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar>
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
+    <>
+      <Sidebar>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>Application</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {items.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <a href={item.url}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <SidebarMenuButton>
+                    <User2 /> Username
+                    <ChevronUp className="ml-auto" />
                   </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-      <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton>
-                  <User2 /> Username
-                  <ChevronUp className="ml-auto" />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                side="top"
-                className="w-[--radix-popper-anchor-width]"
-              >
-                {/* <DropdownMenuItem>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  side="top"
+                  className="w-[--radix-popper-anchor-width]"
+                >
+                  {/* <DropdownMenuItem>
                   <span>Account</span>
                 </DropdownMenuItem> */}
-                {/* <DropdownMenuItem>
+                  {/* <DropdownMenuItem>
                   <span>Billing</span>
                 </DropdownMenuItem> */}
-                <DropdownMenuItem>
-                  <CetakLaporan
-                    className="w-full p-1"
-                    data={dataLaporan}
-                    onCetak={() => console.log("Mencetak laporan...")}
-                  />
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  {/* <span className="w-full cursor-pointer text-right">
+                  <DropdownMenuItem>
+                    <CetakLaporan
+                      className="w-full p-1"
+                      data={dataLaporan}
+                      onCetak={() => console.log("Mencetak laporan...")}
+                    />
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    {/* <span className="w-full cursor-pointer text-right">
                     Sign out
                   </span> */}
-                  <Link to="/">
-                    <Button
-                      className="w-32 cursor-pointer rounded-lg border-2 p-1"
-                      onClick={handleLogout}
-                    >
-                      Keluar
-                    </Button>
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
-      {/* <SidebarFooter>
+                    <Link to="/">
+                      <Button
+                        className="w-32 cursor-pointer rounded-lg border-2 p-1"
+                        onClick={handleLogout}
+                      >
+                        Keluar
+                      </Button>
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarFooter>
+        {/* <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter> */}
-    </Sidebar>
+      </Sidebar>
+    </>
   );
 }
