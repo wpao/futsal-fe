@@ -15,6 +15,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import { useMediaQuery } from "@react-hook/media-query";
 
 const JamPage = () => {
   // const dispatch = useDispatch();
@@ -24,6 +25,8 @@ const JamPage = () => {
 
   // supaya home mengarah ke admin/edit
   // dispatch({ type: "USER_CHANGE" });
+
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   return (
     <AdminPage>
@@ -41,9 +44,11 @@ const JamPage = () => {
           direction="vertical"
           // className="rounded-lg border md:min-w-[450px]"
         >
-          <ResizablePanel defaultSize={30}>
-            <ResizablePanelGroup direction="horizontal">
-              <ResizablePanel>
+          <ResizablePanel>
+            <ResizablePanelGroup
+              direction={isMobile ? "vertical" : "horizontal"}
+            >
+              <ResizablePanel defaultSize={200}>
                 <div className="flex h-full items-center justify-center p-6">
                   <span className="font-semibold">
                     <CalendarForm />
@@ -51,7 +56,7 @@ const JamPage = () => {
                 </div>
               </ResizablePanel>
               <ResizableHandle />
-              <ResizablePanel>
+              <ResizablePanel defaultSize={200}>
                 <div className="flex h-full items-center justify-center p-6">
                   <span className="font-semibold">
                     <Jam />
