@@ -6,6 +6,7 @@ import { Header } from "./components/Header";
 // import { AppSidebar } from "./components/AppSidebar";
 import JamPage from "./pages/admin/JamPage";
 import LoginPage from "./pages/LoginPage";
+import LoginUser from "./pages/LoginUser";
 import Layout from "./pages/Layout";
 import RegisterPage from "./pages/RegisterPage";
 import { useHydration } from "./hooks/useHydration";
@@ -31,7 +32,7 @@ import { DataTableDemo } from "./pages/admin/DataTableDemo";
 function App() {
   // mengatur munculnya Header
   const location = useLocation();
-  const hideHeaderPaths = ["/login", "/register", "/"]; // Path tanpa Header
+  const hideHeaderPaths = ["/login", "/register", "/", "/loginuser"]; // Path tanpa Header
   const shouldShowHeader = !hideHeaderPaths.includes(location.pathname);
 
   // ambil isHydrated
@@ -92,6 +93,7 @@ function App() {
           <Route path="/home" Component={HomePage} />
           <Route path="/info" Component={InfoPage} />
           <Route path="/login" Component={LoginPage} />
+          <Route path="/loginuser" Component={LoginUser} />
         </Route>
 
         {/* Admin routes wrapped with SidebarProvider */}

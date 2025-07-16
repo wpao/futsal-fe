@@ -64,7 +64,8 @@ const DashboardPage = () => {
     localStorage.setItem("lapangan-change", idUser);
 
     // arahkan ke halaman HomePage.tsx
-    window.location.href = "/home";
+    // window.location.href = "/home";
+    window.location.href = "/loginuser";
   };
 
   // Panggil fetchUsers saat komponen dimount
